@@ -187,7 +187,7 @@ body {
   background: #fbf9f4;
 }
 .dark ::-webkit-scrollbar-track {
-  background: #09090b;
+  background: transparent;
 }
 ::-webkit-scrollbar-thumb {
   background: #2563eb; 

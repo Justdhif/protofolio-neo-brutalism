@@ -129,8 +129,69 @@ export default function TimelineSection() {
           })}
         </div>
 
-        <div className="relative flex items-center gap-3 md:gap-4">
+        <div className="relative w-full overflow-hidden">
+          <AnimatePresence mode="wait" custom={direction}>
+            <motion.div
+              key={current}
+              custom={direction}
+              variants={SLIDE_VARIANTS}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              className="bg-white dark:bg-dark-card p-6 md:p-8 rounded-2xl neo-border neo-shadow w-full"
+            >
 
+              <div className="flex flex-col md:flex-row md:items-start justify-between gap-4 mb-6 pb-6 border-b-2 border-dashed border-zinc-100 dark:border-zinc-800">
+                <div className="flex items-start gap-4">
+
+                  <div
+                    className={`shrink-0 p-3 rounded-xl neo-border-sm neo-shadow-sm ${milestone.color}`}
+                  >
+                    {milestone.icon}
+                  </div>
+                  <div>
+                    <div className="flex items-center gap-2 mb-1">
+                      <span className="font-mono text-xs font-bold text-zinc-400 uppercase">
+                        {current + 1} / {milestones.length}
+                      </span>
+                    </div>
+                    <h3 className="font-display font-black text-xl md:text-2xl text-black dark:text-white uppercase leading-tight tracking-tight">
+                      {milestone.role}
+                    </h3>
+                    <span className="font-display font-bold text-sm text-zinc-500 uppercase mt-1 inline-block">
+                      @{milestone.company}
+                    </span>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-1.5 px-3 py-1.5 bg-cream dark:bg-zinc-800 text-black dark:text-white font-mono text-xs font-bold neo-border-sm rounded-lg shrink-0 w-fit">
+                  <Calendar size={14} />
+                  <span>{milestone.period}</span>
+                </div>
+              </div>
+
+              <ul className="space-y-3 font-sans text-sm md:text-base text-zinc-700 dark:text-zinc-300 font-medium">
+                {milestone.description.map((bullet, bIdx) => (
+                  <motion.li
+                    key={bIdx}
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.1 + bIdx * 0.07 }}
+                    className="flex items-start gap-2"
+                  >
+                    <ChevronRight
+                      size={18}
+                      className="text-electric dark:text-pink-accent shrink-0 mt-0.5"
+                    />
+                    <span>{bullet}</span>
+                  </motion.li>
+                ))}
+              </ul>
+            </motion.div>
+          </AnimatePresence>
+        </div>
+
+        <div className="flex items-center justify-center gap-4 sm:gap-6 mt-8">
           <button
             onClick={prev}
             disabled={current === 0}
@@ -147,66 +208,30 @@ export default function TimelineSection() {
             <ChevronLeft size={22} strokeWidth={2.5} />
           </button>
 
-          <div className="flex-1 overflow-hidden">
-            <AnimatePresence mode="wait" custom={direction}>
-              <motion.div
-                key={current}
-                custom={direction}
-                variants={SLIDE_VARIANTS}
-                initial="enter"
-                animate="center"
-                exit="exit"
-                className="bg-white dark:bg-dark-card p-6 md:p-8 rounded-2xl neo-border neo-shadow w-full"
+          <div className="flex justify-center gap-2.5">
+            {milestones.map((_, idx) => (
+              <button
+                key={idx}
+                onClick={() => goTo(idx)}
+                aria-label={`Jump to milestone ${idx + 1}`}
+                className="focus:outline-none focus-visible:ring-2 focus-visible:ring-neon-purple rounded-full"
               >
-
-                <div className="flex flex-col md:flex-row md:items-start justify-between gap-4 mb-6 pb-6 border-b-2 border-dashed border-zinc-100 dark:border-zinc-800">
-                  <div className="flex items-start gap-4">
-
-                    <div
-                      className={`shrink-0 p-3 rounded-xl neo-border-sm neo-shadow-sm ${milestone.color}`}
-                    >
-                      {milestone.icon}
-                    </div>
-                    <div>
-                      <div className="flex items-center gap-2 mb-1">
-                        <span className="font-mono text-xs font-bold text-zinc-400 uppercase">
-                          {current + 1} / {milestones.length}
-                        </span>
-                      </div>
-                      <h3 className="font-display font-black text-xl md:text-2xl text-black dark:text-white uppercase leading-tight tracking-tight">
-                        {milestone.role}
-                      </h3>
-                      <span className="font-display font-bold text-sm text-zinc-500 uppercase mt-1 inline-block">
-                        @{milestone.company}
-                      </span>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center gap-1.5 px-3 py-1.5 bg-cream dark:bg-zinc-800 text-black dark:text-white font-mono text-xs font-bold neo-border-sm rounded-lg shrink-0 w-fit">
-                    <Calendar size={14} />
-                    <span>{milestone.period}</span>
-                  </div>
-                </div>
-
-                <ul className="space-y-3 font-sans text-sm md:text-base text-zinc-700 dark:text-zinc-300 font-medium">
-                  {milestone.description.map((bullet, bIdx) => (
-                    <motion.li
-                      key={bIdx}
-                      initial={{ opacity: 0, x: -10 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.1 + bIdx * 0.07 }}
-                      className="flex items-start gap-2"
-                    >
-                      <ChevronRight
-                        size={18}
-                        className="text-electric dark:text-pink-accent shrink-0 mt-0.5"
-                      />
-                      <span>{bullet}</span>
-                    </motion.li>
-                  ))}
-                </ul>
-              </motion.div>
-            </AnimatePresence>
+                <motion.span
+                  animate={{
+                    width: idx === current ? 28 : 10,
+                    backgroundColor:
+                      idx === current
+                        ? "#a855f7" 
+                        : idx < current
+                        ? "#84cc16" 
+                        : "rgba(161,161,170,0.5)", 
+                  }}
+                  transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                  className="block h-2.5 rounded-full cursor-pointer"
+                  style={{ display: "block" }}
+                />
+              </button>
+            ))}
           </div>
 
           <button
@@ -224,32 +249,6 @@ export default function TimelineSection() {
           >
             <ChevronRight size={22} strokeWidth={2.5} />
           </button>
-        </div>
-
-        <div className="flex justify-center gap-2.5 mt-8">
-          {milestones.map((_, idx) => (
-            <button
-              key={idx}
-              onClick={() => goTo(idx)}
-              aria-label={`Jump to milestone ${idx + 1}`}
-              className="focus:outline-none focus-visible:ring-2 focus-visible:ring-neon-purple rounded-full"
-            >
-              <motion.span
-                animate={{
-                  width: idx === current ? 28 : 10,
-                  backgroundColor:
-                    idx === current
-                      ? "#a855f7" 
-                      : idx < current
-                      ? "#84cc16" 
-                      : "rgba(161,161,170,0.5)", 
-                }}
-                transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                className="block h-2.5 rounded-full cursor-pointer"
-                style={{ display: "block" }}
-              />
-            </button>
-          ))}
         </div>
       </div>
     </section>

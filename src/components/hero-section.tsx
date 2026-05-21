@@ -205,7 +205,7 @@ export default function HeroSection() {
         </motion.div>
       </div>
 
-      <div className="mt-6 -mx-4 md:-mx-8 w-[calc(100%+2rem)] md:w-[calc(100%+4rem)]">
+      <div className="mt-16 md:mt-6 -mx-4 md:-mx-8 w-[calc(100%+2rem)] md:w-[calc(100%+4rem)]">
         <CurvedLoop
           marqueeText="JUNIOR DEVELOPER ✦ UI DESIGNER ✦ OPEN TO WORK ✦"
           speed={2}

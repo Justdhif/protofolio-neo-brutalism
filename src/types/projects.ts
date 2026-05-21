@@ -8,5 +8,7 @@ export interface Project {
   githubUrl: string;
   accentClass: string;
   shadowColor: string;
-  mockupType: "library" | "lending" | "ai" | "finance" | "shooter";
+  urlSlug: string;
+  mockupType: "library" | "lending" | "ai" | "finance" | "shooter" | "justlist";
 }
+

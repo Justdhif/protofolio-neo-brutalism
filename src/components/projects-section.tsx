@@ -9,6 +9,7 @@ import LendingMockup from "@/components/project-previews/lending-mockup";
 import AiMockup from "@/components/project-previews/ai-mockup";
 import FinanceMockup from "@/components/project-previews/finance-mockup";
 import ShooterMockup from "@/components/project-previews/shooter-mockup";
+import JustlistMockup from "@/components/project-previews/justlist-mockup";
 
 export default function ProjectsSection() {
   const containerVariants = {
@@ -71,17 +72,7 @@ export default function ProjectsSection() {
                 <div className={`lg:col-span-6 relative group ${isEven ? "lg:order-1" : "lg:order-2"}`}>
 
                   <div
-                    className={`absolute -inset-2 rounded-3xl blur-2xl opacity-15 dark:opacity-20 pointer-events-none ${
-                      project.id === 1
-                        ? "bg-lime-green"
-                        : project.id === 2
-                          ? "bg-pink-accent"
-                          : project.id === 3
-                            ? "bg-electric"
-                            : project.id === 4
-                              ? "bg-orange-accent"
-                              : "bg-pink-accent"
-                    }`}
+                    className={`absolute -inset-2 rounded-3xl blur-2xl opacity-15 dark:opacity-20 pointer-events-none ${project.accentClass.split(" ")[0]}`}
                   />
 
                   <motion.div
@@ -98,7 +89,7 @@ export default function ProjectsSection() {
 
                       <div className="px-4 py-1 bg-zinc-50 dark:bg-zinc-950 text-[10px] text-zinc-550 dark:text-zinc-400 font-mono rounded border border-zinc-250 dark:border-zinc-800 w-3/5 text-center truncate select-none shadow-inner flex items-center justify-center gap-2">
                         <span className="inline-block w-1.5 h-1.5 rounded-full bg-lime-green animate-pulse" />
-                        <span>https://{project.title.toLowerCase().replace(/\s+/g, "")}.nadhif.dev</span>
+                        <span>nadhif.dev/{project.urlSlug}</span>
                       </div>
 
                       <div className="w-10 flex justify-end text-zinc-400 dark:text-zinc-500">
@@ -121,6 +112,7 @@ export default function ProjectsSection() {
                       {project.mockupType === "ai" && <AiMockup />}
                       {project.mockupType === "finance" && <FinanceMockup />}
                       {project.mockupType === "shooter" && <ShooterMockup />}
+                      {project.mockupType === "justlist" && <JustlistMockup />}
                     </div>
                   </motion.div>
                 </div>
