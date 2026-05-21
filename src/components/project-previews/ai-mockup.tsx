@@ -88,7 +88,7 @@ export default function AiMockup() {
 
       <div
         ref={chatContainerRef}
-        className="flex-1 py-3.5 space-y-3.5 overflow-y-auto no-scrollbar flex flex-col justify-end min-h-[160px]"
+        className="flex-1 py-3.5 space-y-3.5 overflow-y-auto no-scrollbar flex flex-col justify-end min-h-40"
       >
 
         {userText && (

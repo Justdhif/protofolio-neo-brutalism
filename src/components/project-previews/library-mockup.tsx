@@ -106,7 +106,7 @@ export default function LibraryMockup() {
           </button>
         </div>
 
-        <div className="relative py-4 px-2 bg-zinc-950/5 dark:bg-zinc-950/20 rounded-2xl border border-zinc-200/80 dark:border-zinc-800/80 flex justify-center gap-4 h-[120px] items-end mb-3.5">
+        <div className="relative py-4 px-2 bg-zinc-950/5 dark:bg-zinc-950/20 rounded-2xl border border-zinc-200/80 dark:border-zinc-800/80 flex justify-center gap-4 h-30 items-end mb-3.5">
           {books.map((book, idx) => {
             const isSelected = selectedBookIdx === idx;
             return (
@@ -125,7 +125,7 @@ export default function LibraryMockup() {
                     : "1.5px 1.5px 0px 0px rgba(0,0,0,0.6)",
                 }}
                 transition={{ type: "spring", stiffness: 350, damping: 18 }}
-                className={`relative w-[65px] h-[90px] rounded-lg border-2 border-black ${book.coverColor} flex flex-col justify-between p-2 cursor-pointer transition-shadow`}
+                className={`relative w-16.25 h-22.5 rounded-lg border-2 border-black ${book.coverColor} flex flex-col justify-between p-2 cursor-pointer transition-shadow`}
               >
 
                 <div className="absolute top-0 left-0.5 w-[2.5px] h-full bg-white/20 rounded-l" />

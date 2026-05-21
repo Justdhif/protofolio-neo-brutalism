@@ -236,7 +236,7 @@ export default function LendingMockup() {
               key={item.name}
               layout
               whileHover={{ y: -4, scale: 1.025 }}
-              className="p-3 bg-zinc-50 dark:bg-zinc-800/40 rounded-xl border border-zinc-200 dark:border-zinc-700/60 flex items-center gap-3.5 h-[80px] cursor-pointer hover:border-black dark:hover:border-zinc-400 transition-all duration-200"
+              className="p-3 bg-zinc-50 dark:bg-zinc-800/40 rounded-xl border border-zinc-200 dark:border-zinc-700/60 flex items-center gap-3.5 h-20 cursor-pointer hover:border-black dark:hover:border-zinc-400 transition-all duration-200"
             >
 
               <div className="w-11 h-11 bg-white dark:bg-zinc-900 rounded-xl border border-zinc-200 dark:border-zinc-800 flex items-center justify-center shadow-inner">

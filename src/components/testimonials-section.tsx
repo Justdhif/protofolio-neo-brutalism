@@ -34,7 +34,7 @@ export default function TestimonialsSection() {
           {[...testimonials, ...testimonials].map((item, idx) => (
             <div
               key={idx}
-              className="w-[350px] md:w-[450px] p-6 md:p-8 bg-cream/70 dark:bg-dark-card/75 glass-effect neo-border neo-shadow rounded-2xl shrink-0 flex flex-col justify-between"
+              className="w-87.5 md:w-112.5 p-6 md:p-8 bg-cream/70 dark:bg-dark-card/75 glass-effect neo-border neo-shadow rounded-2xl shrink-0 flex flex-col justify-between"
             >
               <div>
 

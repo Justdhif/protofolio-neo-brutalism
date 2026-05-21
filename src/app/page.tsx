@@ -7,11 +7,11 @@ import TimelineSection from "@/components/timeline-section";
 import TestimonialsSection from "@/components/testimonials-section";
 import ContactSection from "@/components/contact-section";
 import Footer from "@/components/footer";
+import ClickSpark from "@/components/click-spark";
 
 export default function Home() {
   return (
-    <>
-
+    <ClickSpark>
       <Navbar />
 
       <main className="flex flex-col flex-1">
@@ -25,6 +25,6 @@ export default function Home() {
       </main>
 
       <Footer />
-    </>
+    </ClickSpark>
   );
 }

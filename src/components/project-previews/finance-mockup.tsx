@@ -136,7 +136,7 @@ export default function FinanceMockup() {
 
         <div className="grid grid-cols-12 gap-3">
 
-          <div className="col-span-7 relative bg-zinc-950/5 dark:bg-zinc-950/40 border border-zinc-200 dark:border-zinc-800/80 rounded-2xl p-2 overflow-hidden h-[98px] flex flex-col justify-between">
+          <div className="col-span-7 relative bg-zinc-950/5 dark:bg-zinc-950/40 border border-zinc-200 dark:border-zinc-800/80 rounded-2xl p-2 overflow-hidden h-24.5 flex flex-col justify-between">
             <div className="text-[7px] font-mono text-zinc-450 dark:text-zinc-400 font-bold flex items-center gap-1.5">
               <span className="w-1.5 h-1.5 rounded-full bg-orange-accent animate-ping" />
               <span>REAL-TIME STREAMING ANALYTICS</span>
@@ -177,7 +177,7 @@ export default function FinanceMockup() {
             </svg>
           </div>
 
-          <div className="col-span-5 bg-zinc-50 dark:bg-zinc-800/60 p-2.5 rounded-2xl border border-zinc-200 dark:border-zinc-800 flex flex-col justify-between h-[98px]">
+          <div className="col-span-5 bg-zinc-50 dark:bg-zinc-800/60 p-2.5 rounded-2xl border border-zinc-200 dark:border-zinc-800 flex flex-col justify-between h-24.5">
             <div>
               <span className="text-[7px] text-zinc-400 dark:text-zinc-400 font-mono font-bold block uppercase tracking-wider">
                 Asset Allocation
