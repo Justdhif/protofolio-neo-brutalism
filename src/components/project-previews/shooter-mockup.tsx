@@ -38,22 +38,26 @@ export default function ShooterMockup() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // Game UI state
   const [score, setScore] = useState(0);
   const [highScore, setHighScore] = useState(1280);
   const [wave, setWave] = useState(1);
   const [isPlaying, setIsPlaying] = useState(false);
   const [gameOver, setGameOver] = useState(false);
-  const [isMuted, setIsMuted] = useState(true); // Default muted to respect autoplay policy
+  const [isMuted, setIsMuted] = useState(true);
   const [showFocusHint, setShowFocusHint] = useState(false);
 
-  // Keep references to values needed inside the requestAnimationFrame loop
   const gameStateRef = useRef({
     playerX: 200,
     playerY: 215,
     playerWidth: 26,
     playerHeight: 20,
-    keys: { ArrowLeft: false, ArrowRight: false, KeyA: false, KeyD: false, Space: false },
+    keys: {
+      ArrowLeft: false,
+      ArrowRight: false,
+      KeyA: false,
+      KeyD: false,
+      Space: false,
+    },
     lasers: [] as Laser[],
     aliens: [] as Alien[],
     particles: [] as Particle[],
@@ -67,27 +71,33 @@ export default function ShooterMockup() {
     autoTargetAlienIdx: -1,
   });
 
-  // Synthesize Retro SFX using Web Audio API
   const playLaserSound = () => {
     if (isMuted) return;
     try {
-      const AudioCtx = window.AudioContext || (window as any).webkitAudioContext;
+      const AudioCtx =
+        window.AudioContext || (window as any).webkitAudioContext;
       if (!AudioCtx) return;
       const audioCtx = new AudioCtx();
-      
+
       const osc = audioCtx.createOscillator();
       const gainNode = audioCtx.createGain();
-      
+
       osc.type = "sawtooth";
       osc.frequency.setValueAtTime(600, audioCtx.currentTime);
-      osc.frequency.exponentialRampToValueAtTime(80, audioCtx.currentTime + 0.12);
-      
+      osc.frequency.exponentialRampToValueAtTime(
+        80,
+        audioCtx.currentTime + 0.12,
+      );
+
       gainNode.gain.setValueAtTime(0.06, audioCtx.currentTime);
-      gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.12);
-      
+      gainNode.gain.exponentialRampToValueAtTime(
+        0.001,
+        audioCtx.currentTime + 0.12,
+      );
+
       osc.connect(gainNode);
       gainNode.connect(audioCtx.destination);
-      
+
       osc.start();
       osc.stop(audioCtx.currentTime + 0.12);
     } catch (e) {
@@ -98,23 +108,27 @@ export default function ShooterMockup() {
   const playExplosionSound = () => {
     if (isMuted) return;
     try {
-      const AudioCtx = window.AudioContext || (window as any).webkitAudioContext;
+      const AudioCtx =
+        window.AudioContext || (window as any).webkitAudioContext;
       if (!AudioCtx) return;
       const audioCtx = new AudioCtx();
-      
+
       const osc = audioCtx.createOscillator();
       const gainNode = audioCtx.createGain();
-      
+
       osc.type = "triangle";
       osc.frequency.setValueAtTime(140, audioCtx.currentTime);
       osc.frequency.linearRampToValueAtTime(30, audioCtx.currentTime + 0.25);
-      
+
       gainNode.gain.setValueAtTime(0.1, audioCtx.currentTime);
-      gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.25);
-      
+      gainNode.gain.exponentialRampToValueAtTime(
+        0.001,
+        audioCtx.currentTime + 0.25,
+      );
+
       osc.connect(gainNode);
       gainNode.connect(audioCtx.destination);
-      
+
       osc.start();
       osc.stop(audioCtx.currentTime + 0.25);
     } catch (e) {
@@ -125,24 +139,28 @@ export default function ShooterMockup() {
   const playLevelUpSound = () => {
     if (isMuted) return;
     try {
-      const AudioCtx = window.AudioContext || (window as any).webkitAudioContext;
+      const AudioCtx =
+        window.AudioContext || (window as any).webkitAudioContext;
       if (!AudioCtx) return;
       const audioCtx = new AudioCtx();
-      
+
       const osc = audioCtx.createOscillator();
       const gainNode = audioCtx.createGain();
-      
+
       osc.type = "sine";
       osc.frequency.setValueAtTime(300, audioCtx.currentTime);
       osc.frequency.setValueAtTime(450, audioCtx.currentTime + 0.1);
       osc.frequency.setValueAtTime(600, audioCtx.currentTime + 0.2);
-      
+
       gainNode.gain.setValueAtTime(0.08, audioCtx.currentTime);
-      gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.35);
-      
+      gainNode.gain.exponentialRampToValueAtTime(
+        0.001,
+        audioCtx.currentTime + 0.35,
+      );
+
       osc.connect(gainNode);
       gainNode.connect(audioCtx.destination);
-      
+
       osc.start();
       osc.stop(audioCtx.currentTime + 0.35);
     } catch (e) {
@@ -150,17 +168,14 @@ export default function ShooterMockup() {
     }
   };
 
-  // Start the game loop and keep refs up to date
   useEffect(() => {
     gameStateRef.current.isPlaying = isPlaying;
     gameStateRef.current.gameOver = gameOver;
   }, [isPlaying, gameOver]);
 
-  // Setup game entities
   const initGame = () => {
     const state = gameStateRef.current;
-    
-    // Background Stars setup
+
     state.stars = [];
     for (let i = 0; i < 40; i++) {
       state.stars.push({
@@ -176,15 +191,14 @@ export default function ShooterMockup() {
     state.particles = [];
   };
 
-  // Spawn aliens wave
   const spawnAliens = () => {
     const state = gameStateRef.current;
     const waveNum = state.wave;
     state.aliens = [];
-    
+
     const rows = Math.min(3, 1 + Math.floor(waveNum / 2));
     const cols = 5;
-    const colors = ["#ff5e7e", "#3b82f6", "#10b981"]; // Pink, Electric Blue, Emerald Green
+    const colors = ["#ff5e7e", "#3b82f6", "#10b981"];
 
     for (let r = 0; r < rows; r++) {
       for (let c = 0; c < cols; c++) {
@@ -197,13 +211,12 @@ export default function ShooterMockup() {
           hp: 1 + Math.floor(waveNum / 3),
           color,
           points: (rows - r) * 10 * waveNum,
-          vx: (0.4 + (waveNum * 0.12)) * (Math.random() > 0.5 ? 1 : -1),
+          vx: (0.4 + waveNum * 0.12) * (Math.random() > 0.5 ? 1 : -1),
         });
       }
     }
   };
 
-  // Handle Game Loop logic
   useEffect(() => {
     initGame();
     let animationId: number;
@@ -216,7 +229,6 @@ export default function ShooterMockup() {
     const update = () => {
       const state = gameStateRef.current;
 
-      // 1. Move background stars
       state.stars.forEach((star) => {
         star.y += star.speed;
         if (star.y > 260) {
@@ -225,9 +237,7 @@ export default function ShooterMockup() {
         }
       });
 
-      // 2. Playable Keyboard Logic vs Autoplay Demo Logic
       if (state.isPlaying && !state.gameOver) {
-        // Player manual moves
         const speed = 3;
         if (state.keys.ArrowLeft || state.keys.KeyA) {
           state.playerX = Math.max(15, state.playerX - speed);
@@ -236,7 +246,6 @@ export default function ShooterMockup() {
           state.playerX = Math.min(385, state.playerX + speed);
         }
 
-        // Auto/Manual shooting speed limit
         if (state.keys.Space) {
           const now = Date.now();
           if (now - state.lastShotTime > 320) {
@@ -246,39 +255,37 @@ export default function ShooterMockup() {
               vy: -4.5,
               width: 2.5,
               height: 10,
-              color: "#00f3ff", // bright neon cyan
+              color: "#00f3ff",
             });
             state.lastShotTime = now;
             playLaserSound();
           }
         }
       } else if (!state.gameOver) {
-        // DEMO AUTOPLAY MODE ENGINE
-        // Find nearest alien to target
         if (state.aliens.length > 0) {
-          // Find lowest alien that is closest in x
           let closestAlienIdx = 0;
           let minDist = 99999;
-          
+
           state.aliens.forEach((alien, idx) => {
             const dist = Math.abs(alien.x - state.playerX);
-            if (alien.y > state.aliens[closestAlienIdx].y || (alien.y === state.aliens[closestAlienIdx].y && dist < minDist)) {
+            if (
+              alien.y > state.aliens[closestAlienIdx].y ||
+              (alien.y === state.aliens[closestAlienIdx].y && dist < minDist)
+            ) {
               closestAlienIdx = idx;
               minDist = dist;
             }
           });
 
           const targetAlien = state.aliens[closestAlienIdx];
-          
-          // Move towards target alien
+
           const targetX = targetAlien.x;
           const diff = targetX - state.playerX;
-          
+
           if (Math.abs(diff) > 4) {
             state.playerX += Math.sign(diff) * 1.5;
           }
 
-          // Shoots automatically when aligned with target alien
           if (Math.abs(diff) < 25) {
             const now = Date.now();
             if (now - state.lastShotTime > 450) {
@@ -288,37 +295,33 @@ export default function ShooterMockup() {
                 vy: -4,
                 width: 2.5,
                 height: 10,
-                color: "#10b981", // Green lasers for demo
+                color: "#10b981",
               });
               state.lastShotTime = now;
-              // Don't play laser audio in demo mode to be polite, unless unmuted and user hovered
             }
           }
         } else {
-          // Spin/sway player ship if no aliens
           state.playerX += state.autoMoveDirection * 0.8;
           if (state.playerX > 300) state.autoMoveDirection = -1;
           if (state.playerX < 100) state.autoMoveDirection = 1;
         }
       }
 
-      // 3. Move Lasers
       state.lasers.forEach((laser, lIdx) => {
         laser.y += laser.vy;
       });
 
-      // Filter out offscreen lasers
-      state.lasers = state.lasers.filter((laser) => laser.y > 0 && laser.y < 260);
+      state.lasers = state.lasers.filter(
+        (laser) => laser.y > 0 && laser.y < 260,
+      );
 
-      // 4. Move Aliens & Wave Spawns
       let alienReachedBottom = false;
       state.aliens.forEach((alien) => {
         alien.x += alien.vx;
 
-        // Bounce invaders off screen edges
         if (alien.x < 15 || alien.x > 385) {
           alien.vx = -alien.vx;
-          alien.y += 8; // creep down
+          alien.y += 8;
         }
 
         if (alien.y > state.playerY - 12) {
@@ -334,40 +337,32 @@ export default function ShooterMockup() {
         }
       }
 
-      // 5. Laser vs Alien Collision Detection
       state.lasers.forEach((laser, lIdx) => {
         state.aliens.forEach((alien, aIdx) => {
-          // Check collision AABB bounding box
           if (
             laser.x > alien.x - alien.width / 2 &&
             laser.x < alien.x + alien.width / 2 &&
             laser.y > alien.y - alien.height / 2 &&
             laser.y < alien.y + alien.height / 2
           ) {
-            // Hit! Remove laser, subtract hp
             state.lasers.splice(lIdx, 1);
             alien.hp -= 1;
 
-            // Generate bright spark particles
             createExplosionParticles(alien.x, alien.y, alien.color);
 
             if (alien.hp <= 0) {
-              // Destroyed! Award points
               state.aliens.splice(aIdx, 1);
               state.score += alien.points;
               setScore(state.score);
 
-              // Update highscore
               if (state.score > highScore) {
                 setHighScore(state.score);
               }
 
-              // Play destruction Sound
               if (state.isPlaying) {
                 playExplosionSound();
               }
             } else {
-              // Hit flash sound
               if (state.isPlaying && !isMuted) {
                 playLaserSound();
               }
@@ -376,7 +371,6 @@ export default function ShooterMockup() {
         });
       });
 
-      // 6. Check Wave clear
       if (state.aliens.length === 0 && !state.gameOver) {
         state.wave += 1;
         setWave(state.wave);
@@ -386,7 +380,6 @@ export default function ShooterMockup() {
         }
       }
 
-      // 7. Update Particles
       state.particles.forEach((p, pIdx) => {
         p.x += p.vx;
         p.y += p.vy;
@@ -418,11 +411,9 @@ export default function ShooterMockup() {
     const render = () => {
       const state = gameStateRef.current;
 
-      // Clear Canvas with alpha trail overlay
       ctx.fillStyle = "rgba(8, 8, 14, 0.25)";
       ctx.fillRect(0, 0, 400, 260);
 
-      // Render Stars
       ctx.fillStyle = "#ffffff";
       state.stars.forEach((star) => {
         ctx.globalAlpha = star.speed * 0.6;
@@ -430,7 +421,6 @@ export default function ShooterMockup() {
       });
       ctx.globalAlpha = 1.0;
 
-      // Draw Grid lines on background
       ctx.strokeStyle = "rgba(45, 92, 246, 0.04)";
       ctx.lineWidth = 1;
       for (let i = 0; i < 400; i += 25) {
@@ -446,7 +436,6 @@ export default function ShooterMockup() {
         ctx.stroke();
       }
 
-      // Render Particles
       state.particles.forEach((p) => {
         ctx.save();
         ctx.globalAlpha = p.alpha;
@@ -459,21 +448,23 @@ export default function ShooterMockup() {
         ctx.restore();
       });
 
-      // Render Lasers
       state.lasers.forEach((laser) => {
         ctx.save();
         ctx.fillStyle = laser.color;
         ctx.shadowBlur = 6;
         ctx.shadowColor = laser.color;
-        ctx.fillRect(laser.x - laser.width / 2, laser.y, laser.width, laser.height);
+        ctx.fillRect(
+          laser.x - laser.width / 2,
+          laser.y,
+          laser.width,
+          laser.height,
+        );
         ctx.restore();
       });
 
-      // Render Player Ship (Vibrant Neon Triangle)
       ctx.save();
       ctx.translate(state.playerX, state.playerY);
-      
-      // Draw small thruster flame particle flicker
+
       if (Math.random() > 0.3) {
         ctx.fillStyle = Math.random() > 0.5 ? "#ff8c00" : "#ff3e7e";
         ctx.beginPath();
@@ -483,48 +474,42 @@ export default function ShooterMockup() {
         ctx.fill();
       }
 
-      // Draw ship
-      ctx.fillStyle = state.isPlaying ? "#00f3ff" : "#10b981"; // Cyan if playing, emerald if demo
+      ctx.fillStyle = state.isPlaying ? "#00f3ff" : "#10b981";
       ctx.shadowBlur = 8;
       ctx.shadowColor = state.isPlaying ? "#00f3ff" : "#10b981";
       ctx.beginPath();
-      ctx.moveTo(0, -10); // tip
+      ctx.moveTo(0, -10);
       ctx.lineTo(-state.playerWidth / 2, state.playerHeight / 2);
-      ctx.lineTo(0, state.playerHeight / 5); // inner notch
+      ctx.lineTo(0, state.playerHeight / 5);
       ctx.lineTo(state.playerWidth / 2, state.playerHeight / 2);
       ctx.closePath();
       ctx.fill();
 
-      // Cute wing tip cannons
       ctx.fillStyle = "#ffffff";
       ctx.fillRect(-state.playerWidth / 2 - 1, 2, 2, 5);
       ctx.fillRect(state.playerWidth / 2 - 1, 2, 2, 5);
 
       ctx.restore();
 
-      // Render Aliens
       state.aliens.forEach((alien) => {
         ctx.save();
         ctx.fillStyle = alien.color;
         ctx.shadowBlur = 7;
         ctx.shadowColor = alien.color;
 
-        // Custom retro geometry alien rendering
         ctx.beginPath();
-        ctx.moveTo(alien.x, alien.y - alien.height / 2); // Top
-        ctx.lineTo(alien.x + alien.width / 2, alien.y); // Right corner
-        ctx.lineTo(alien.x + alien.width / 4, alien.y + alien.height / 2); // Bottom right
-        ctx.lineTo(alien.x - alien.width / 4, alien.y + alien.height / 2); // Bottom left
-        ctx.lineTo(alien.x - alien.width / 2, alien.y); // Left corner
+        ctx.moveTo(alien.x, alien.y - alien.height / 2);
+        ctx.lineTo(alien.x + alien.width / 2, alien.y);
+        ctx.lineTo(alien.x + alien.width / 4, alien.y + alien.height / 2);
+        ctx.lineTo(alien.x - alien.width / 4, alien.y + alien.height / 2);
+        ctx.lineTo(alien.x - alien.width / 2, alien.y);
         ctx.closePath();
         ctx.fill();
 
-        // Draw alien "eyes" (neon yellow/white dots)
         ctx.fillStyle = "#ffffff";
         ctx.fillRect(alien.x - 4, alien.y - 2, 2, 2);
         ctx.fillRect(alien.x + 2, alien.y - 2, 2, 2);
 
-        // Core shield health detail
         if (alien.hp > 1) {
           ctx.strokeStyle = "#ffffff";
           ctx.lineWidth = 1;
@@ -550,26 +535,33 @@ export default function ShooterMockup() {
     };
   }, [isMuted]);
 
-  // Handle keys capture
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       const state = gameStateRef.current;
       if (!state.isPlaying) return;
 
-      if (["ArrowLeft", "ArrowRight", "KeyA", "KeyD", "Space"].includes(e.code)) {
+      if (
+        ["ArrowLeft", "ArrowRight", "KeyA", "KeyD", "Space"].includes(e.code)
+      ) {
         e.preventDefault();
         if (e.code === "Space") state.keys.Space = true;
-        if (e.code === "ArrowLeft" || e.code === "KeyA") state.keys.ArrowLeft = true;
-        if (e.code === "ArrowRight" || e.code === "KeyD") state.keys.ArrowRight = true;
+        if (e.code === "ArrowLeft" || e.code === "KeyA")
+          state.keys.ArrowLeft = true;
+        if (e.code === "ArrowRight" || e.code === "KeyD")
+          state.keys.ArrowRight = true;
       }
     };
 
     const handleKeyUp = (e: KeyboardEvent) => {
       const state = gameStateRef.current;
-      if (["ArrowLeft", "ArrowRight", "KeyA", "KeyD", "Space"].includes(e.code)) {
+      if (
+        ["ArrowLeft", "ArrowRight", "KeyA", "KeyD", "Space"].includes(e.code)
+      ) {
         if (e.code === "Space") state.keys.Space = false;
-        if (e.code === "ArrowLeft" || e.code === "KeyA") state.keys.ArrowLeft = false;
-        if (e.code === "ArrowRight" || e.code === "KeyD") state.keys.ArrowRight = false;
+        if (e.code === "ArrowLeft" || e.code === "KeyA")
+          state.keys.ArrowLeft = false;
+        if (e.code === "ArrowRight" || e.code === "KeyD")
+          state.keys.ArrowRight = false;
       }
     };
 
@@ -582,26 +574,23 @@ export default function ShooterMockup() {
     };
   }, []);
 
-  // Launch actual Interactive Play Mode
   const startPlaying = () => {
     const state = gameStateRef.current;
     state.score = 0;
     state.wave = 1;
     state.playerX = 200;
     state.gameOver = false;
-    
+
     setScore(0);
     setWave(1);
     setGameOver(false);
     setIsPlaying(true);
 
-    // Initialise audio on user trigger
     setIsMuted(false);
-    
+
     initGame();
     playLevelUpSound();
 
-    // Focus on container to alert users of keyboard capture
     containerRef.current?.focus();
     setShowFocusHint(true);
     setTimeout(() => setShowFocusHint(false), 3000);
@@ -625,8 +614,10 @@ export default function ShooterMockup() {
     initGame();
   };
 
-  // Virtual controllers for mobile/touch
-  const setVirtualKey = (key: "ArrowLeft" | "ArrowRight" | "Space", pressed: boolean) => {
+  const setVirtualKey = (
+    key: "ArrowLeft" | "ArrowRight" | "Space",
+    pressed: boolean,
+  ) => {
     const state = gameStateRef.current;
     if (key === "Space") {
       state.keys.Space = pressed;
@@ -641,53 +632,57 @@ export default function ShooterMockup() {
       tabIndex={0}
       className="flex flex-col h-full justify-between select-none outline-none focus:ring-1 focus:ring-pink-500/30 rounded-lg relative overflow-hidden"
     >
-      {/* Top HUD Display panel */}
       <div className="flex items-center justify-between pb-2 border-b border-zinc-200 dark:border-zinc-800 shrink-0 relative z-10">
         <div className="flex items-center gap-2">
-          <div className={`w-2.5 h-2.5 rounded-full ${isPlaying ? "bg-pink-accent animate-pulse shadow-[0_0_8px_rgba(255,94,126,0.6)]" : "bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)]"}`} />
+          <div
+            className={`w-2.5 h-2.5 rounded-full ${isPlaying ? "bg-pink-accent animate-pulse shadow-[0_0_8px_rgba(255,94,126,0.6)]" : "bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)]"}`}
+          />
           <span className="text-[10px] font-display font-black uppercase tracking-widest text-zinc-900 dark:text-white">
             {isPlaying ? "Retro Strike (LIVE)" : "Retro Strike // AUTOPLAY"}
           </span>
         </div>
-        
-        {/* Scoreboard */}
+
         <div className="flex items-center gap-3.5 font-mono text-[9px] font-bold text-zinc-500">
           <div>
-            SCORE: <span className="text-zinc-800 dark:text-zinc-200 font-extrabold">{score}</span>
+            SCORE:{" "}
+            <span className="text-zinc-800 dark:text-zinc-200 font-extrabold">
+              {score}
+            </span>
           </div>
           <div className="hidden sm:block">
-            HI: <span className="text-zinc-400 dark:text-zinc-600">{highScore}</span>
+            HI:{" "}
+            <span className="text-zinc-400 dark:text-zinc-600">
+              {highScore}
+            </span>
           </div>
           <div>
-            WAVE: <span className="text-pink-accent font-extrabold">{wave}</span>
+            WAVE:{" "}
+            <span className="text-pink-accent font-extrabold">{wave}</span>
           </div>
         </div>
       </div>
 
-      {/* Retro scanline & screen bezel aesthetic overlay */}
       <div className="absolute inset-x-0 top-10 bottom-12 pointer-events-none z-10 bg-scanlines opacity-[0.03] dark:opacity-[0.07]" />
 
-      {/* Main Canvas view area */}
-      <div className="relative flex-1 flex items-center justify-center bg-[#08080e] min-h-[170px] border border-black/10 dark:border-white/5 my-2.5 rounded-xl overflow-hidden shadow-inner">
+      <div className="relative flex-1 flex items-center justify-center bg-[#08080e] min-h-42.5 border border-black/10 dark:border-white/5 my-2.5 rounded-xl overflow-hidden shadow-inner">
         <canvas
           ref={canvasRef}
           width={400}
           height={260}
-          className="w-full h-full max-h-[260px] object-contain aspect-[400/260]"
+          className="w-full h-full max-h-65 object-contain aspect-400/260"
         />
 
-        {/* Demo Mode Overlay overlay */}
         {!isPlaying && !gameOver && (
           <div className="absolute inset-0 bg-black/60 backdrop-blur-[1px] flex flex-col items-center justify-center p-4 text-center z-10 animate-fadeIn">
             <div className="px-3.5 py-1 bg-pink-accent text-white font-mono text-[8px] font-bold neo-border-sm neo-shadow-sm rounded mb-3 flex items-center gap-1">
               <Swords size={10} className="animate-spin" />
               <span>ARCADE CABINET V.1.0</span>
             </div>
-            
+
             <h4 className="font-display font-black text-xl text-white tracking-wider uppercase leading-none mb-1">
               RETRO SPACE STRIKE
             </h4>
-            
+
             <p className="text-[8px] font-mono text-zinc-400 max-w-[80%] mb-4 leading-normal uppercase">
               HTML + CSS + Pure Canvas JS Engine
             </p>
@@ -702,7 +697,6 @@ export default function ShooterMockup() {
           </div>
         )}
 
-        {/* Game Over Screen */}
         {gameOver && (
           <div className="absolute inset-0 bg-black/85 backdrop-blur-[2px] flex flex-col items-center justify-center p-4 text-center z-20 animate-fadeIn">
             <Award className="text-pink-accent w-8 h-8 mb-2 animate-bounce" />
@@ -710,7 +704,8 @@ export default function ShooterMockup() {
               GAME OVER
             </h4>
             <p className="text-[10px] font-mono text-zinc-300 mb-3.5">
-              FINAL SCORE: <span className="text-lime-green font-black">{score}</span> // WAVE: {wave}
+              FINAL SCORE:{" "}
+              <span className="text-lime-green font-black">{score}</span>
             </p>
 
             <div className="flex items-center gap-2">
@@ -731,7 +726,6 @@ export default function ShooterMockup() {
           </div>
         )}
 
-        {/* Keyboard Focus Hint banner */}
         {showFocusHint && (
           <div className="absolute top-2 left-1/2 -translate-x-1/2 px-3 py-1 bg-electric text-white text-[8px] font-mono font-bold rounded neo-border-sm animate-pulse pointer-events-none z-20">
             USE ← → ARROWS OR A/D & SPACE TO FIRE!
@@ -739,21 +733,21 @@ export default function ShooterMockup() {
         )}
       </div>
 
-      {/* Interactive Controls & Mute Footer */}
       <div className="flex items-center justify-between shrink-0 pt-1.5 border-t border-zinc-200 dark:border-zinc-800 relative z-10">
-        {/* Left Side: Audio Controls */}
         <button
           onClick={() => setIsMuted(!isMuted)}
           className="p-1.5 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 text-zinc-500 hover:text-zinc-800 dark:hover:text-zinc-200 cursor-pointer transition-colors"
           title={isMuted ? "Unmute Retro SFX" : "Mute Sound"}
         >
-          {isMuted ? <VolumeX size={11} /> : <Volume2 size={11} className="text-pink-accent animate-pulse" />}
+          {isMuted ? (
+            <VolumeX size={11} />
+          ) : (
+            <Volume2 size={11} className="text-pink-accent animate-pulse" />
+          )}
         </button>
 
-        {/* Center: Live Keyboard / Game info indicator */}
         {isPlaying ? (
           <div className="flex items-center gap-2">
-            {/* Visual virtual controller pad for tactile feel */}
             <div className="flex gap-1">
               <button
                 onMouseDown={() => setVirtualKey("ArrowLeft", true)}
@@ -799,9 +793,8 @@ export default function ShooterMockup() {
           </span>
         )}
 
-        {/* Right Side: Static branding */}
         <span className="text-[7.5px] font-mono text-zinc-400 dark:text-zinc-550 select-none uppercase font-bold tracking-tight">
-          JS ENGINE // PORTFOLIO
+          JS ENGINE
         </span>
       </div>
     </div>

@@ -22,8 +22,7 @@ export default function Footer() {
   return (
     <footer className="bg-white dark:bg-zinc-900 pt-16 pb-8 px-4 md:px-8 transition-colors duration-300">
       <div className="max-w-6xl mx-auto">
-        
-        {/* Top Call to Action Block */}
+
         <div className="bg-lime-green dark:bg-lime-green/95 text-black p-8 md:p-12 neo-border neo-shadow rounded-2xl flex flex-col md:flex-row items-start md:items-center justify-between gap-6 mb-16">
           <div className="space-y-2">
             <h3 className="font-display font-black text-2xl md:text-4xl uppercase tracking-tight leading-none">
@@ -43,10 +42,8 @@ export default function Footer() {
           </button>
         </div>
 
-        {/* Middle Footer Grid */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-12 pb-12">
-          
-          {/* Brand/Bio Info */}
+
           <div className="md:col-span-5 flex flex-col items-start gap-4">
             <div className="flex items-center gap-3">
               <div className="p-2 bg-lime-green text-black rounded-lg neo-border-sm">
@@ -56,12 +53,11 @@ export default function Footer() {
                 NADHIF A.W
               </span>
             </div>
-            
+
             <p className="font-sans font-medium text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed max-w-sm">
               Junior Frontend Developer and Creative UI Designer focused on crafting beautifully interactive, premium, and functional web applications.
             </p>
 
-            {/* Availability Pill */}
             <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-cream dark:bg-zinc-800 neo-border-sm neo-shadow-sm rounded-lg">
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-lime-green opacity-75"></span>
@@ -73,10 +69,9 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Site Navigation Links */}
           <div className="md:col-span-3 space-y-4">
             <h4 className="font-mono text-xs font-black uppercase text-pink-accent tracking-widest">
-              Sitemap //
+              Sitemap 
             </h4>
             <ul className="grid grid-cols-2 gap-x-4 gap-y-2.5">
               {navLinks.map((link, idx) => (
@@ -92,13 +87,11 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Socials & Connect */}
           <div className="md:col-span-4 space-y-4">
             <h4 className="font-mono text-xs font-black uppercase text-electric tracking-widest">
-              Connect //
+              Connect 
             </h4>
-            
-            {/* Social Icons row */}
+
             <div className="flex flex-wrap items-center gap-3">
               {heroSocials.map((social, idx) => (
                 <a
@@ -114,7 +107,6 @@ export default function Footer() {
               ))}
             </div>
 
-            {/* Quick stats location */}
             <div className="flex items-center gap-2 pt-2 text-zinc-500 dark:text-zinc-400 font-mono text-xs">
               <MapPin size={14} className="text-orange-accent shrink-0" />
               <span>Surabaya, Indonesia (GMT+7)</span>
@@ -123,14 +115,12 @@ export default function Footer() {
 
         </div>
 
-        {/* Bottom copyright/credits bar */}
         <div className="border-t-2 border-zinc-200 dark:border-zinc-800 pt-8 flex flex-col md:flex-row items-center justify-between gap-6">
-          
+
           <span className="font-mono text-[10px] text-zinc-500 dark:text-zinc-550 font-bold text-center md:text-left">
             CREATIVE PORTFOLIO &copy; {currentYear} NADHIF A.W. ALL RIGHTS RESERVED.
           </span>
 
-          {/* Scroll to top button */}
           <button
             onClick={handleScrollToTop}
             aria-label="Scroll back to top"

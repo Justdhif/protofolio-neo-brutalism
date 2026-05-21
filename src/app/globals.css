@@ -5,18 +5,18 @@
 @theme {
   --font-sans: var(--font-inter), ui-sans-serif, system-ui;
   --font-display: var(--font-space-grotesk), sans-serif;
-  
+
   --color-cream: #fbf9f4;
   --color-dark-bg: #09090b;
   --color-dark-card: #121214;
-  
+
   --color-electric: #2d5cf6;
   --color-neon-purple: #9d4edd;
   --color-lime-green: #a3e635;
   --color-pink-accent: #f43f5e;
   --color-orange-accent: #f97316;
   --color-emerald-accent: #10b981;
-  
+
   --animate-float: float 6s ease-in-out infinite;
   --animate-float-delayed: float-delayed 8s ease-in-out infinite;
   --animate-blob: blob 10s infinite;
@@ -45,7 +45,7 @@
 :root {
   --background: #fbf9f4;
   --foreground: #09090b;
-  
+
   --border-color: #09090b;
   --shadow-color: rgba(9, 9, 9, 1);
   --shadow-offset: 4px;
@@ -54,7 +54,7 @@
 .dark {
   --background: #09090b;
   --foreground: #fbf9f4;
-  
+
   --border-color: #fbf9f4;
   --shadow-color: rgba(251, 249, 244, 0.9);
   --shadow-offset: 4px;
@@ -68,7 +68,6 @@ body {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Premium Neo Brutalism styling utilities */
 .neo-border {
   border: 3px solid var(--border-color);
 }
@@ -103,7 +102,6 @@ body {
   box-shadow: calc(var(--shadow-offset) - 2px) calc(var(--shadow-offset) - 2px) 0px 0px var(--border-color);
 }
 
-/* Neo Brutalism color themes */
 .neo-card-cream {
   background-color: #fcfbfa;
 }
@@ -111,7 +109,6 @@ body {
   background-color: #121214;
 }
 
-/* Custom Cursor styling */
 .custom-cursor {
   width: 24px;
   height: 24px;
@@ -137,7 +134,6 @@ body {
   z-index: 9999;
 }
 
-/* Grain texture overlay */
 .grain-overlay {
   position: fixed;
   top: 0;
@@ -154,7 +150,6 @@ body {
   opacity: 0.055;
 }
 
-/* Glassmorphism utility */
 .glass-effect {
   background: rgba(251, 249, 244, 0.7);
   backdrop-filter: blur(12px);
@@ -167,7 +162,6 @@ body {
   -webkit-backdrop-filter: blur(12px);
 }
 
-/* Hide scrollbar but keep functionality */
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
@@ -176,7 +170,6 @@ body {
   scrollbar-width: none;
 }
 
-/* Custom selection */
 ::selection {
   background-color: #a3e635;
   color: #000000;
@@ -187,7 +180,6 @@ body {
   color: #ffffff;
 }
 
-/* Custom Scrollbar */
 ::-webkit-scrollbar {
   width: 14px;
 }
@@ -198,7 +190,7 @@ body {
   background: #09090b;
 }
 ::-webkit-scrollbar-thumb {
-  background: #2563eb; /* bg-electric */
+  background: #2563eb; 
   border: 3px solid #fbf9f4;
   border-radius: 8px;
 }

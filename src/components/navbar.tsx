@@ -13,15 +13,12 @@ export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const isScrollingFromClickRef = useRef(false);
 
-  // Monitor scroll for styling navbar and tracking active sections
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
 
-      // If we are currently scrolling from a click, ignore scroll active section updates
       if (isScrollingFromClickRef.current) return;
 
-      // Check if we are at the bottom of the page
       const isAtBottom =
         window.innerHeight + window.scrollY >=
         document.documentElement.scrollHeight - 50;
@@ -31,7 +28,6 @@ export default function Navbar() {
         return;
       }
 
-      // Find which section is active based on scroll position
       const scrollPosition = window.scrollY + window.innerHeight / 3;
 
       for (const link of navLinks) {
@@ -50,7 +46,7 @@ export default function Navbar() {
     };
 
     window.addEventListener("scroll", handleScroll);
-    // Trigger on mount
+
     handleScroll();
 
     return () => window.removeEventListener("scroll", handleScroll);
@@ -76,7 +72,7 @@ export default function Navbar() {
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 px-4 md:px-8 py-6 bg-transparent`}
     >
       <div className="max-w-6xl mx-auto flex items-center justify-between">
-        {/* Logo / Brand Name */}
+
         <a
           href="#home"
           onClick={(e) => {
@@ -89,7 +85,6 @@ export default function Navbar() {
           <span>JUSTDHIF.DEV</span>
         </a>
 
-        {/* Desktop Navigation Pill */}
         <nav className="hidden md:flex items-center gap-1 p-1.5 bg-cream/80 dark:bg-dark-card/85 glass-effect neo-border neo-shadow rounded-full backdrop-blur-md">
           {navLinks
             .filter((link) => link.href !== "#contact")
@@ -127,9 +122,8 @@ export default function Navbar() {
             })}
         </nav>
 
-        {/* Action Controls (Theme and Mobile Toggle) */}
         <div className="flex items-center gap-3">
-          {/* Theme Toggler */}
+
           <button
             onClick={toggleTheme}
             aria-label="Toggle Light/Dark Theme"
@@ -142,7 +136,6 @@ export default function Navbar() {
             )}
           </button>
 
-          {/* Contact Button (Desktop / Tablet) */}
           <a
             href="#contact"
             onClick={(e) => {
@@ -158,7 +151,6 @@ export default function Navbar() {
             CONTACT
           </a>
 
-          {/* Mobile Menu Button */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             aria-label="Toggle Mobile Menu"
@@ -173,7 +165,6 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Mobile Menu Overlay */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div

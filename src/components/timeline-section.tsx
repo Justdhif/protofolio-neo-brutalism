@@ -49,7 +49,7 @@ export default function TimelineSection() {
       className="py-24 px-4 md:px-8 bg-cream dark:bg-zinc-950 transition-colors duration-300 overflow-hidden"
     >
       <div className="max-w-5xl mx-auto">
-        {/* ── Section Heading ─────────────────────────────────── */}
+
         <div className="flex flex-col items-end mb-16 text-right">
           <div className="px-3 py-1 bg-neon-purple text-white font-mono text-xs font-bold neo-border-sm neo-shadow-sm rounded-md mb-4">
             MY JOURNEY
@@ -63,9 +63,8 @@ export default function TimelineSection() {
           </h2>
         </div>
 
-        {/* ── Horizontal Roadmap Track ─────────────────────────── */}
         <div className="relative flex items-center justify-between mb-8">
-          {/* Background trace line */}
+
           <div
             className="absolute top-6 -translate-y-1/2 h-0.5 bg-zinc-200 dark:bg-zinc-800 pointer-events-none transition-colors duration-300"
             style={{
@@ -74,7 +73,6 @@ export default function TimelineSection() {
             }}
           />
 
-          {/* Active flowing progress line */}
           <motion.div
             className="absolute top-6 -translate-y-1/2 h-1 rounded-full bg-linear-to-r from-neon-purple via-pink-accent to-lime-green pointer-events-none shadow-[0_0_8px_rgba(168,85,247,0.5)] dark:shadow-[0_0_12px_rgba(168,85,247,0.7)]"
             style={{
@@ -99,7 +97,7 @@ export default function TimelineSection() {
                 `}
                 aria-label={`Go to milestone ${idx + 1}: ${m.role}`}
               >
-                {/* Centered Node Icon Container */}
+
                 <div className="flex items-center justify-center h-12 w-full">
                   <motion.div
                     animate={{
@@ -118,7 +116,6 @@ export default function TimelineSection() {
                   </motion.div>
                 </div>
 
-                {/* Period label */}
                 <span
                   className={`
                     mt-2 font-mono text-[10px] font-bold uppercase transition-colors duration-200 text-center leading-tight
@@ -132,9 +129,8 @@ export default function TimelineSection() {
           })}
         </div>
 
-        {/* ── Card Slider ──────────────────────────────────────── */}
         <div className="relative flex items-center gap-3 md:gap-4">
-          {/* Prev button */}
+
           <button
             onClick={prev}
             disabled={current === 0}
@@ -151,7 +147,6 @@ export default function TimelineSection() {
             <ChevronLeft size={22} strokeWidth={2.5} />
           </button>
 
-          {/* Card */}
           <div className="flex-1 overflow-hidden">
             <AnimatePresence mode="wait" custom={direction}>
               <motion.div
@@ -163,10 +158,10 @@ export default function TimelineSection() {
                 exit="exit"
                 className="bg-white dark:bg-dark-card p-6 md:p-8 rounded-2xl neo-border neo-shadow w-full"
               >
-                {/* Card header */}
+
                 <div className="flex flex-col md:flex-row md:items-start justify-between gap-4 mb-6 pb-6 border-b-2 border-dashed border-zinc-100 dark:border-zinc-800">
                   <div className="flex items-start gap-4">
-                    {/* Colored icon badge */}
+
                     <div
                       className={`shrink-0 p-3 rounded-xl neo-border-sm neo-shadow-sm ${milestone.color}`}
                     >
@@ -187,14 +182,12 @@ export default function TimelineSection() {
                     </div>
                   </div>
 
-                  {/* Period badge */}
                   <div className="flex items-center gap-1.5 px-3 py-1.5 bg-cream dark:bg-zinc-800 text-black dark:text-white font-mono text-xs font-bold neo-border-sm rounded-lg shrink-0 w-fit">
                     <Calendar size={14} />
                     <span>{milestone.period}</span>
                   </div>
                 </div>
 
-                {/* Description bullets */}
                 <ul className="space-y-3 font-sans text-sm md:text-base text-zinc-700 dark:text-zinc-300 font-medium">
                   {milestone.description.map((bullet, bIdx) => (
                     <motion.li
@@ -216,7 +209,6 @@ export default function TimelineSection() {
             </AnimatePresence>
           </div>
 
-          {/* Next button */}
           <button
             onClick={next}
             disabled={current === milestones.length - 1}
@@ -234,7 +226,6 @@ export default function TimelineSection() {
           </button>
         </div>
 
-        {/* ── Dot Progress Indicator ───────────────────────────── */}
         <div className="flex justify-center gap-2.5 mt-8">
           {milestones.map((_, idx) => (
             <button
@@ -248,10 +239,10 @@ export default function TimelineSection() {
                   width: idx === current ? 28 : 10,
                   backgroundColor:
                     idx === current
-                      ? "#a855f7" // neon-purple
+                      ? "#a855f7" 
                       : idx < current
-                      ? "#84cc16" // lime-green
-                      : "rgba(161,161,170,0.5)", // zinc-400 muted
+                      ? "#84cc16" 
+                      : "rgba(161,161,170,0.5)", 
                 }}
                 transition={{ type: "spring", stiffness: 400, damping: 30 }}
                 className="block h-2.5 rounded-full cursor-pointer"

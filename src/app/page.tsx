@@ -11,10 +11,9 @@ import Footer from "@/components/footer";
 export default function Home() {
   return (
     <>
-      {/* Sticky pill navigation layout */}
+
       <Navbar />
 
-      {/* Layout Content Stacking */}
       <main className="flex flex-col flex-1">
         <HeroSection />
         <AboutSection />
@@ -25,7 +24,6 @@ export default function Home() {
         <ContactSection />
       </main>
 
-      {/* Persistent footer */}
       <Footer />
     </>
   );

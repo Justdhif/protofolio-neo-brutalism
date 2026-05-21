@@ -23,10 +23,10 @@ export default function SkillsSection() {
   };
 
   const getStrokeColorClass = (score: number) => {
-    if (score >= 10) return "stroke-lime-green"; // Full/Perfect Mastery
-    if (score === 9) return "stroke-electric"; // Expert execution
-    if (score === 8) return "stroke-pink-accent"; // Advanced competency
-    return "stroke-orange-accent"; // Strong proficiency
+    if (score >= 10) return "stroke-lime-green"; 
+    if (score === 9) return "stroke-electric"; 
+    if (score === 8) return "stroke-pink-accent"; 
+    return "stroke-orange-accent"; 
   };
 
   return (
@@ -35,7 +35,7 @@ export default function SkillsSection() {
       className="py-24 px-4 md:px-8 bg-cream dark:bg-zinc-950 transition-colors duration-300 overflow-hidden"
     >
       <div className="max-w-6xl mx-auto">
-        {/* Section Heading */}
+
         <div className="flex flex-col items-end mb-16 text-right">
           <div className="px-3 py-1 bg-orange-accent text-white font-mono text-xs font-bold neo-border-sm neo-shadow-sm rounded-md mb-4">
             MY POWERHOUSE
@@ -48,7 +48,6 @@ export default function SkillsSection() {
           </h2>
         </div>
 
-        {/* Categories Grid */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
@@ -62,11 +61,11 @@ export default function SkillsSection() {
               variants={cardVariants}
               className="p-6 md:p-8 bg-white dark:bg-dark-card neo-border neo-shadow rounded-2xl flex flex-col justify-between"
             >
-              {/* Category Header */}
+
               <div>
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex items-center gap-3">
-                    {/* Icon frame */}
+
                     <div
                       className={`p-3 rounded-xl neo-border-sm neo-shadow-sm ${category.colorClass}`}
                     >
@@ -77,7 +76,7 @@ export default function SkillsSection() {
                         {category.title}
                       </h3>
                       <span className="text-xs text-zinc-400 font-mono">
-                        0{idx + 1} // SECTION
+                        0{idx + 1} 
                       </span>
                     </div>
                   </div>
@@ -88,7 +87,6 @@ export default function SkillsSection() {
                 </p>
               </div>
 
-              {/* Skills Tag Cloud */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-2">
                 {category.skills.map((skill, sIdx) => (
                   <div
@@ -102,14 +100,13 @@ export default function SkillsSection() {
                       </span>
                     </div>
 
-                    {/* Neo-Brutalist Circular Progress Indicator */}
                     <div className="relative flex items-center justify-center w-10 h-10 select-none">
                       <svg
                         width="40"
                         height="40"
                         className="transform -rotate-90"
                       >
-                        {/* Background Track Circle */}
+
                         <circle
                           cx="20"
                           cy="20"
@@ -118,7 +115,7 @@ export default function SkillsSection() {
                           strokeWidth="3.5"
                           fill="transparent"
                         />
-                        {/* Active Progress Circle */}
+
                         <circle
                           cx="20"
                           cy="20"
@@ -131,7 +128,7 @@ export default function SkillsSection() {
                           strokeLinecap="round"
                         />
                       </svg>
-                      {/* Centered Score Label */}
+
                       <div className="absolute inset-0 flex items-center justify-center">
                         <span className="font-mono text-[9px] font-black text-black dark:text-white transform translate-y-[0.5px]">
                           {skill.score}/10

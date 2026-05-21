@@ -16,10 +16,10 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    // Check local storage or system preference
+
     const savedTheme = localStorage.getItem("theme") as Theme | null;
     const systemPrefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-    
+
     if (savedTheme) {
       setTheme(savedTheme);
       document.documentElement.classList.toggle("dark", savedTheme === "dark");
@@ -30,7 +30,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
       setTheme("light");
       document.documentElement.classList.remove("dark");
     }
-    
+
     setMounted(true);
   }, []);
 
@@ -41,7 +41,6 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     document.documentElement.classList.toggle("dark", nextTheme === "dark");
   };
 
-  // Prevent flash or hydration error by only rendering children when mounted
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme }}>
       <div style={{ visibility: mounted ? "visible" : "hidden" }} className="w-full min-h-screen flex flex-col flex-1">

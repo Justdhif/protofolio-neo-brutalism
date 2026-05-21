@@ -17,7 +17,7 @@ export default function ContactSection() {
     if (!name || !email || !message) return;
 
     setIsSubmitting(true);
-    // Simulate API call
+
     setTimeout(() => {
       setIsSubmitting(false);
       setIsSubmitted(true);
@@ -34,7 +34,7 @@ export default function ContactSection() {
     >
       <div className="max-w-6xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-          {/* Left Column: Heading and Details (5 Columns) */}
+
           <div className="lg:col-span-5 space-y-8">
             <div className="space-y-4">
               <div className="flex items-center gap-2 px-3 py-1.5 bg-electric text-white font-display text-xs font-bold neo-border-sm rounded-lg w-fit">
@@ -57,7 +57,6 @@ export default function ContactSection() {
               Have an elite project idea, a permanent engineering opening, or just want to chat about web micro-interactions? Drop a line in the terminal! I typically respond within 12 hours.
             </p>
 
-            {/* Direct Connect details */}
             <div className="space-y-4">
               <div className="p-4 bg-white dark:bg-dark-card rounded-xl neo-border neo-shadow-sm flex items-center gap-3">
                 <div className="p-2.5 bg-pink-accent text-white rounded-lg neo-border-sm">
@@ -76,7 +75,6 @@ export default function ContactSection() {
                 </div>
               </div>
 
-              {/* Quick links card */}
               <div className="p-4 bg-white dark:bg-dark-card rounded-xl neo-border neo-shadow-sm flex items-center gap-4">
                 <div className="p-2.5 bg-electric text-white rounded-lg neo-border-sm">
                   <Terminal size={18} strokeWidth={2.5} />
@@ -101,7 +99,6 @@ export default function ContactSection() {
                 </div>
               </div>
 
-              {/* Download CV card */}
               <a
                 href="/cv-nadhif.pdf"
                 download
@@ -122,10 +119,9 @@ export default function ContactSection() {
             </div>
           </div>
 
-          {/* Right Column: Interaction Form Panel (7 Columns) */}
           <div className="lg:col-span-7">
             <div className="p-6 md:p-8 bg-white dark:bg-dark-card rounded-2xl neo-border neo-shadow-lg relative overflow-hidden">
-              {/* Terminal header decoration */}
+
               <div className="flex items-center justify-between pb-4 border-b-2 border-black dark:border-zinc-800 mb-6">
                 <div className="flex items-center gap-1.5">
                   <span className="w-2.5 h-2.5 rounded-full bg-pink-accent" />
@@ -147,7 +143,7 @@ export default function ContactSection() {
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                   >
-                    {/* Name Input */}
+
                     <div className="flex flex-col gap-2">
                       <label
                         htmlFor="name-input"
@@ -166,7 +162,6 @@ export default function ContactSection() {
                       />
                     </div>
 
-                    {/* Email Input */}
                     <div className="flex flex-col gap-2">
                       <label
                         htmlFor="email-input"
@@ -185,7 +180,6 @@ export default function ContactSection() {
                       />
                     </div>
 
-                    {/* Message Input */}
                     <div className="flex flex-col gap-2">
                       <label
                         htmlFor="message-input"
@@ -204,7 +198,6 @@ export default function ContactSection() {
                       />
                     </div>
 
-                    {/* Submit Button */}
                     <button
                       type="submit"
                       disabled={isSubmitting}

@@ -5,6 +5,7 @@ import { ArrowRight, Code, Terminal, Sparkles } from "lucide-react";
 import { motion } from "framer-motion";
 import { heroSocials } from "@/constants/hero";
 import { LaravelIcon, NextjsIcon } from "./brand-icons";
+import CurvedLoop from "./curved-loop";
 
 export default function HeroSection() {
   const handleScrollTo = (id: string) => {
@@ -34,22 +35,22 @@ export default function HeroSection() {
   return (
     <section
       id="home"
-      className="relative min-h-screen flex items-center justify-center pt-28 pb-16 px-4 md:px-8 bg-cream dark:bg-zinc-950 overflow-hidden"
+      className="relative min-h-screen flex flex-col justify-center pt-28 pb-24 px-4 md:px-8 bg-cream dark:bg-zinc-950 overflow-hidden"
     >
-      {/* Decorative dynamic background blobs */}
+
       <div className="absolute top-1/4 left-1/10 w-72 h-72 rounded-full bg-lime-green/20 dark:bg-lime-green/10 blur-3xl animate-blob" />
       <div className="absolute bottom-1/4 right-1/10 w-96 h-96 rounded-full bg-electric/15 dark:bg-electric/10 blur-3xl animate-blob [animation-delay:4s]" />
       <div className="absolute top-1/3 right-1/4 w-80 h-80 rounded-full bg-pink-accent/15 dark:bg-pink-accent/5 blur-3xl animate-blob [animation-delay:8s]" />
 
       <div className="max-w-6xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10">
-        {/* Left Side: Content Column */}
+
         <motion.div
           variants={containerVariants}
           initial="hidden"
           animate="visible"
           className="lg:col-span-7 flex flex-col items-start text-left space-y-6"
         >
-          {/* Introductory Pill */}
+
           <motion.div
             variants={itemVariants}
             className="flex items-center gap-2 px-3 py-1.5 bg-white dark:bg-zinc-900 text-black dark:text-white neo-border-sm neo-shadow-sm rounded-lg font-mono text-sm font-bold"
@@ -61,7 +62,6 @@ export default function HeroSection() {
             <span>CREATIVE DEVELOPER PORTFOLIO</span>
           </motion.div>
 
-          {/* Main Massive Brutalist Heading */}
           <motion.h1
             variants={itemVariants}
             className="font-display font-black text-5xl md:text-7xl leading-[1.05] tracking-tight text-black dark:text-white"
@@ -84,7 +84,6 @@ export default function HeroSection() {
             , a Junior Frontend Developer focused on crafting modern, highly interactive, and visually stunning web interfaces. I dedicate myself to turning design concepts into pixel-perfect, responsive digital experiences with smooth animations and clean code.
           </motion.p>
 
-          {/* Social Links Row */}
           <motion.div
             variants={itemVariants}
             className="flex flex-wrap items-center gap-3"
@@ -103,7 +102,6 @@ export default function HeroSection() {
             ))}
           </motion.div>
 
-          {/* Call To Actions */}
           <motion.div
             variants={itemVariants}
             className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 w-full sm:w-auto pt-2"
@@ -130,7 +128,6 @@ export default function HeroSection() {
           </motion.div>
         </motion.div>
 
-        {/* Right Side: Profile Image & Floating Badges Column */}
         <motion.div
           initial={{ opacity: 0, scale: 0.85 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -142,15 +139,13 @@ export default function HeroSection() {
           }}
           className="lg:col-span-5 flex justify-center items-center relative"
         >
-          {/* Main Double Border Picture Frame */}
+
           <div className="relative w-80 h-80 md:w-96 md:h-96">
-            {/* Background offset card (pink color) */}
+
             <div className="absolute inset-0 bg-pink-accent rounded-3xl neo-border transform translate-x-4 translate-y-4" />
 
-            {/* Background offset card (orange color) */}
             <div className="absolute inset-0 bg-orange-accent rounded-3xl neo-border transform -rotate-3 translate-x-1 translate-y-2" />
 
-             {/* Profile image container card */}
             <div className="absolute inset-0 bg-white dark:bg-zinc-900 rounded-3xl neo-border neo-shadow-lg overflow-hidden flex items-center justify-center group cursor-pointer">
               <Image
                 src="/home-perfil.jpg"
@@ -161,7 +156,6 @@ export default function HeroSection() {
                 className="object-cover group-hover:scale-105 transition-transform duration-500"
               />
 
-              {/* Overlaid Available for Hire Badge */}
               <div className="absolute top-4 right-4 z-20 px-3 py-1.5 bg-pink-accent text-white font-display text-xs font-bold neo-border-sm neo-shadow-sm rounded-xl flex items-center gap-1.5 pointer-events-none">
                 <span className="relative flex h-2 w-2">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-lime-green opacity-75"></span>
@@ -171,7 +165,6 @@ export default function HeroSection() {
               </div>
             </div>
 
-            {/* Floating Badge 1: Code Tech */}
             <motion.div
               animate={{
                 y: [0, -10, 0],
@@ -188,7 +181,6 @@ export default function HeroSection() {
               <span>Frontend Developer</span>
             </motion.div>
 
-             {/* Floating Badge 2: Framer Motion */}
             <motion.div
               animate={{
                 y: [0, 10, 0],
@@ -211,6 +203,17 @@ export default function HeroSection() {
             </motion.div>
           </div>
         </motion.div>
+      </div>
+
+      <div className="mt-6 -mx-4 md:-mx-8 w-[calc(100%+2rem)] md:w-[calc(100%+4rem)]">
+        <CurvedLoop
+          marqueeText="JUNIOR DEVELOPER ✦ UI DESIGNER ✦ OPEN TO WORK ✦"
+          speed={2}
+          curveAmount={250}
+          direction="left"
+          interactive={true}
+          className="curved-loop-fill"
+        />
       </div>
     </section>
   );

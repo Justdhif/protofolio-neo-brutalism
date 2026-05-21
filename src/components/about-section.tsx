@@ -28,7 +28,7 @@ export default function AboutSection() {
       className="py-24 px-4 md:px-8 bg-white dark:bg-zinc-900 transition-colors duration-300 overflow-hidden"
     >
       <div className="max-w-6xl mx-auto">
-        {/* Section Heading */}
+
         <div className="flex flex-col items-start mb-16">
           <div className="px-3 py-1 bg-neon-purple text-white font-mono text-xs font-bold neo-border-sm neo-shadow-sm rounded-md mb-4">
             WHO IS NADHIF?
@@ -42,7 +42,6 @@ export default function AboutSection() {
           </h2>
         </div>
 
-        {/* Bento Grid Layout */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
@@ -50,7 +49,7 @@ export default function AboutSection() {
           viewport={{ once: true, margin: "-100px" }}
           className="grid grid-cols-1 md:grid-cols-12 gap-6"
         >
-          {/* Bento Cell 1: Detailed Bio (8 Columns) */}
+
           <motion.div
             variants={itemVariants}
             className="md:col-span-8 p-8 bg-cream dark:bg-dark-card neo-border neo-shadow rounded-2xl flex flex-col justify-between"
@@ -82,7 +81,6 @@ export default function AboutSection() {
               </div>
             </div>
 
-            {/* Quick Tech Tag pills */}
             <div className="flex flex-wrap gap-2 mt-8">
               {[
                 "User Experience",
@@ -99,13 +97,12 @@ export default function AboutSection() {
             </div>
           </motion.div>
 
-          {/* Bento Cell 2: Quick Terminal / Fact Sheet (4 Columns) */}
           <motion.div
             variants={itemVariants}
             className="md:col-span-4 p-6 bg-white dark:bg-zinc-950 text-black dark:text-white neo-border neo-shadow rounded-2xl flex flex-col justify-between"
           >
             <div>
-              {/* Terminal Header */}
+
               <div className="flex items-center justify-between pb-4 border-b border-zinc-200 dark:border-zinc-800 mb-6">
                 <div className="flex items-center gap-1.5">
                   <span className="w-3 h-3 rounded-full bg-pink-accent" />
@@ -117,7 +114,6 @@ export default function AboutSection() {
                 </span>
               </div>
 
-              {/* Terminal Bio */}
               <div className="font-mono text-sm space-y-3.5 text-zinc-650 dark:text-zinc-300">
                 <div className="flex gap-2">
                   <span className="text-lime-green font-bold">$</span>
@@ -151,7 +147,6 @@ export default function AboutSection() {
             </div>
           </motion.div>
 
-          {/* Bento Cell 3: Interactive Stats (Grid 12 Columns - 4 cards nested) */}
           <div className="md:col-span-12 grid grid-cols-2 lg:grid-cols-4 gap-6 mt-2">
             {stats.map((stat, idx) => (
               <motion.div
@@ -159,14 +154,13 @@ export default function AboutSection() {
                 variants={itemVariants}
                 className="p-6 bg-cream dark:bg-dark-card neo-border neo-shadow neo-interactive rounded-xl flex flex-col items-center justify-center text-center cursor-pointer group"
               >
-                {/* Massive Animated Value */}
+
                 <span
                   className={`px-4 py-1.5 font-display font-black text-4xl md:text-5xl neo-border neo-shadow-sm rounded-xl mb-4 ${stat.color} transform group-hover:-rotate-3 transition-transform duration-300`}
                 >
                   {stat.value}
                 </span>
 
-                {/* Stat label */}
                 <span className="font-display font-black text-lg md:text-xl text-black dark:text-white uppercase leading-none tracking-tight">
                   {stat.label}
                 </span>
@@ -174,7 +168,6 @@ export default function AboutSection() {
             ))}
           </div>
 
-          {/* Bento Cell 4: Experience / Education Accents (2 Cards - 6 columns each) */}
           <motion.div
             variants={itemVariants}
             className="md:col-span-6 p-6 bg-lime-green text-black neo-border neo-shadow rounded-2xl"

@@ -9,17 +9,15 @@ export default function FinanceMockup() {
   const [chartPoints, setChartPoints] = useState([20, 38, 18, 48, 28, 58, 42, 60]);
   const [updating, setUpdating] = useState(false);
 
-  // Width and height settings for live-drawn SVG charts
   const width = 180;
   const height = 65;
 
   useEffect(() => {
     const interval = setInterval(() => {
-      // Fluctuating account balances
+
       const scale = (Math.random() - 0.48) * 35;
       setBalance((prev) => +(prev + scale).toFixed(2));
 
-      // Shifting coordinates in SVG line
       setChartPoints((prev) => {
         const next = [...prev.slice(1)];
         next.push(Math.floor(Math.random() * 45) + 15);
@@ -72,7 +70,7 @@ export default function FinanceMockup() {
   return (
     <div className="space-y-3.5 h-full flex flex-col justify-between select-none">
       <div>
-        {/* Header bar */}
+
         <div className="flex items-center justify-between mb-2">
           <div className="flex items-center gap-2">
             <Wallet size={16} className="text-orange-accent animate-pulse" />
@@ -91,9 +89,8 @@ export default function FinanceMockup() {
           </button>
         </div>
 
-        {/* Balance Card & Analytics overview */}
         <div className="grid grid-cols-12 gap-3 mb-3">
-          {/* Brutalist Net Balance Card */}
+
           <div className="col-span-7 bg-zinc-50 dark:bg-zinc-800/60 p-3 rounded-xl border border-zinc-200 dark:border-zinc-800 flex flex-col justify-between hover:scale-[1.01] transition-transform">
             <div>
               <span className="text-[7px] text-zinc-400 font-mono block tracking-wider font-extrabold uppercase">
@@ -119,7 +116,6 @@ export default function FinanceMockup() {
             </div>
           </div>
 
-          {/* Quick Stats Grid */}
           <div className="col-span-5 flex flex-col gap-2">
             <div className="p-2 bg-zinc-50 dark:bg-zinc-800/60 rounded-xl border border-zinc-200 dark:border-zinc-800 flex items-center justify-between hover:border-lime-green transition-colors cursor-pointer group">
               <div>
@@ -138,9 +134,8 @@ export default function FinanceMockup() {
           </div>
         </div>
 
-        {/* Live Fluctuating SVG Monitor & Category Breakdown */}
         <div className="grid grid-cols-12 gap-3">
-          {/* Chart Section */}
+
           <div className="col-span-7 relative bg-zinc-950/5 dark:bg-zinc-950/40 border border-zinc-200 dark:border-zinc-800/80 rounded-2xl p-2 overflow-hidden h-[98px] flex flex-col justify-between">
             <div className="text-[7px] font-mono text-zinc-450 dark:text-zinc-400 font-bold flex items-center gap-1.5">
               <span className="w-1.5 h-1.5 rounded-full bg-orange-accent animate-ping" />
@@ -150,12 +145,11 @@ export default function FinanceMockup() {
               className="w-full h-14 overflow-visible mt-2"
               viewBox={`0 0 ${width} ${height}`}
             >
-              {/* Grid Lines inside chart background */}
+
               <line x1="0" y1="15" x2={width} y2="15" stroke="rgba(0,0,0,0.04)" strokeDasharray="3,3" />
               <line x1="0" y1="35" x2={width} y2="35" stroke="rgba(0,0,0,0.04)" strokeDasharray="3,3" />
               <line x1="0" y1="55" x2={width} y2="55" stroke="rgba(0,0,0,0.04)" strokeDasharray="3,3" />
 
-              {/* Gradient backdrop fill */}
               <motion.path
                 d={svgAreaPath}
                 fill="url(#apex-orange-gradient)"
@@ -163,7 +157,7 @@ export default function FinanceMockup() {
                 animate={{ opacity: 0.18 }}
                 transition={{ duration: 0.5 }}
               />
-              {/* Ticking line */}
+
               <motion.path
                 d={svgPath}
                 fill="none"
@@ -183,7 +177,6 @@ export default function FinanceMockup() {
             </svg>
           </div>
 
-          {/* Allocation Section */}
           <div className="col-span-5 bg-zinc-50 dark:bg-zinc-800/60 p-2.5 rounded-2xl border border-zinc-200 dark:border-zinc-800 flex flex-col justify-between h-[98px]">
             <div>
               <span className="text-[7px] text-zinc-400 dark:text-zinc-400 font-mono font-bold block uppercase tracking-wider">
@@ -212,7 +205,6 @@ export default function FinanceMockup() {
         </div>
       </div>
 
-      {/* Footer Info */}
       <div className="flex items-center justify-between text-[8px] font-mono text-zinc-450 dark:text-zinc-550 pt-2.5 border-t border-zinc-150 dark:border-zinc-800">
         <span>SECURITY: 256-BIT SSL</span>
         <span>ANALYTICS: ONLINE</span>

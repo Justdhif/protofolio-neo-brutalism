@@ -39,10 +39,9 @@ export default function RootLayout({
       className={`${inter.variable} ${spaceGrotesk.variable} scroll-smooth`}
     >
       <body className="antialiased min-h-screen relative overflow-x-hidden selection:bg-lime-green selection:text-black">
-        {/* Grain overlay for paper-like luxurious feel */}
+
         <div className="grain-overlay" />
-        
-        {/* Main application content wrapped in ThemeProvider */}
+
         <ThemeProvider>
           <div className="relative z-10 flex flex-col min-h-screen">
             {children}
@@ -52,4 +51,3 @@ export default function RootLayout({
     </html>
   );
 }
-

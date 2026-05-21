@@ -14,11 +14,11 @@ export default function LendingMockup() {
       glowing: "shadow-[0_0_8px_rgba(244,63,94,0.2)]",
       illustration: (
         <div className="relative w-8 h-6 bg-zinc-800 dark:bg-zinc-700 rounded-md flex items-center justify-center border border-black/10 shrink-0 shadow-inner">
-          {/* Camera Lens */}
+
           <div className="w-4 h-4 rounded-full bg-zinc-950 border border-zinc-650 flex items-center justify-center">
             <div className="w-1.5 h-1.5 rounded-full bg-electric animate-pulse" />
           </div>
-          {/* Taping red recording indicator */}
+
           <div className="absolute top-0.5 right-0.5 w-1 h-1 rounded-full bg-pink-accent animate-ping" />
           <div className="absolute top-0.5 right-0.5 w-1 h-1 rounded-full bg-pink-accent" />
         </div>
@@ -32,10 +32,10 @@ export default function LendingMockup() {
       glowing: "shadow-[0_0_8px_rgba(163,230,53,0.2)]",
       illustration: (
         <div className="relative w-8 h-6 flex items-center justify-center shrink-0">
-          {/* Drone Arms */}
+
           <div className="absolute w-7 h-0.5 bg-zinc-800 dark:bg-zinc-650 rounded-full rotate-25" />
           <div className="absolute w-7 h-0.5 bg-zinc-800 dark:bg-zinc-650 rounded-full -rotate-25" />
-          {/* Central Body */}
+
           <div className="w-3 h-3.5 rounded-full bg-zinc-900 border border-zinc-600 z-10 flex items-center justify-center">
             <div className="w-1 h-1 rounded-full bg-lime-green" />
           </div>
@@ -77,7 +77,7 @@ export default function LendingMockup() {
             <div className="w-0.5 h-0.5 bg-zinc-400 rounded-full" />
             <div className="w-0.5 h-0.5 bg-zinc-400 rounded-full" />
           </div>
-          {/* Moving equalizer bars */}
+
           <div className="flex gap-0.5 items-end justify-center w-full">
             <span className="w-0.5 h-1 bg-pink-accent rounded-full animate-bounce [animation-delay:100ms]" />
             <span className="w-0.5 h-2 bg-pink-accent rounded-full animate-bounce [animation-delay:300ms]" />
@@ -98,8 +98,7 @@ export default function LendingMockup() {
           if (idx === randomIndex) {
             const willBeAvailable = item.status === "Reserved";
             const newStatus = willBeAvailable ? "Available" : "Reserved";
-            
-            // Adjust illustration elements colors on status change
+
             const isAvailable = newStatus === "Available";
             const updatedIllustration = isAvailable ? (
               idx === 0 ? (
@@ -231,7 +230,6 @@ export default function LendingMockup() {
           </span>
         </div>
 
-        {/* Live Grid with Staggered layout animations & isometric devices */}
         <div className="grid grid-cols-2 gap-3.5">
           {lendingItems.map((item) => (
             <motion.div
@@ -240,12 +238,11 @@ export default function LendingMockup() {
               whileHover={{ y: -4, scale: 1.025 }}
               className="p-3 bg-zinc-50 dark:bg-zinc-800/40 rounded-xl border border-zinc-200 dark:border-zinc-700/60 flex items-center gap-3.5 h-[80px] cursor-pointer hover:border-black dark:hover:border-zinc-400 transition-all duration-200"
             >
-              {/* Left Column: Iso Vector Device Frame */}
+
               <div className="w-11 h-11 bg-white dark:bg-zinc-900 rounded-xl border border-zinc-200 dark:border-zinc-800 flex items-center justify-center shadow-inner">
                 {item.illustration}
               </div>
 
-              {/* Right Column: Text & Dynamic Status */}
               <div className="flex-1 flex flex-col justify-between h-full py-0.5 overflow-hidden">
                 <div>
                   <span className="text-[7px] text-zinc-400 font-mono font-extrabold block tracking-wider">
@@ -270,7 +267,6 @@ export default function LendingMockup() {
         </div>
       </div>
 
-      {/* Dynamic Terminal Activity Log */}
       <div className="pt-2 border-t border-zinc-150 dark:border-zinc-800 flex items-center gap-2 font-mono text-[8px]">
         <div className="w-1.5 h-1.5 rounded-full bg-pink-accent animate-ping" />
         <span className="text-zinc-400 uppercase tracking-widest font-black shrink-0">LOG:</span>

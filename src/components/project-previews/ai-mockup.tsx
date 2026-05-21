@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 
 export default function AiMockup() {
-  const [chatPhase, setChatPhase] = useState(0); // 0: User typing, 1: Thinking, 2: AI streaming response, 3: Hold state
+  const [chatPhase, setChatPhase] = useState(0); 
   const [userText, setUserText] = useState("");
   const [aiText, setAiText] = useState("");
   const chatContainerRef = useRef<HTMLDivElement>(null);
@@ -26,8 +26,7 @@ export default function AiMockup() {
           timeout = setTimeout(() => setChatPhase(1), 800);
         }
       };
-      
-      // Defer state resets to avoid calling setState synchronously within the effect
+
       const resetTimeout = setTimeout(() => {
         setUserText("");
         setAiText("");
@@ -40,7 +39,7 @@ export default function AiMockup() {
         clearTimeout(timeout);
       };
     } else if (chatPhase === 1) {
-      // Simulate AI processing delay
+
       timeout = setTimeout(() => {
         setChatPhase(2);
       }, 1800);
@@ -57,7 +56,7 @@ export default function AiMockup() {
       };
       type();
     } else if (chatPhase === 3) {
-      // Reset after showing full chat
+
       timeout = setTimeout(() => {
         setChatPhase(0);
       }, 2000);
@@ -74,7 +73,7 @@ export default function AiMockup() {
 
   return (
     <div className="flex flex-col h-full justify-between select-none">
-      {/* AI Chat Header */}
+
       <div className="flex items-center justify-between pb-2.5 border-b border-zinc-200 dark:border-zinc-800">
         <div className="flex items-center gap-2">
           <div className="w-2.5 h-2.5 rounded-full bg-electric animate-pulse shadow-[0_0_8px_rgba(45,92,246,0.6)]" />
@@ -83,16 +82,15 @@ export default function AiMockup() {
           </span>
         </div>
         <span className="text-[8px] font-mono bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 px-2 py-0.5 rounded text-zinc-400 font-bold">
-          Groq LLaMA 3 // STREAMING
+          Groq LLaMA 3 
         </span>
       </div>
 
-      {/* Scrollable Chat Area */}
       <div
         ref={chatContainerRef}
         className="flex-1 py-3.5 space-y-3.5 overflow-y-auto no-scrollbar flex flex-col justify-end min-h-[160px]"
       >
-        {/* User prompt balloon */}
+
         {userText && (
           <motion.div
             initial={{ opacity: 0, y: 12 }}
@@ -111,7 +109,6 @@ export default function AiMockup() {
           </motion.div>
         )}
 
-        {/* AI Bouncing Dots Thinking Indicator */}
         {chatPhase === 1 && (
           <motion.div
             initial={{ opacity: 0, y: 12 }}
@@ -129,7 +126,6 @@ export default function AiMockup() {
           </motion.div>
         )}
 
-        {/* AI Streaming Response Balloon */}
         {aiText && (
           <motion.div
             initial={{ opacity: 0, y: 12 }}
@@ -149,7 +145,6 @@ export default function AiMockup() {
         )}
       </div>
 
-      {/* Static Prompt Input area */}
       <div className="pt-2 border-t border-zinc-200 dark:border-zinc-800 flex gap-2">
         <div className="flex-1 bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl px-3.5 py-2 text-[9px] text-zinc-400 font-sans flex items-center justify-between">
           <span>{chatPhase === 0 ? "Prompting..." : "Send a dynamic query..."}</span>

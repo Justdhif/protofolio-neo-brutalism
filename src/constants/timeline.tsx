@@ -42,4 +42,3 @@ export const milestones: Milestone[] = [
     icon: <Code size={18} strokeWidth={2.5} />,
   },
 ];
-

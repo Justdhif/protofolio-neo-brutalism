@@ -80,7 +80,7 @@ export default function LibraryMockup() {
   return (
     <div className="space-y-3.5 h-full flex flex-col justify-between select-none">
       <div>
-        {/* Header bar */}
+
         <div className="flex items-center justify-between mb-2">
           <div className="flex items-center gap-2">
             <BookOpen size={16} className="text-lime-green" />
@@ -106,7 +106,6 @@ export default function LibraryMockup() {
           </button>
         </div>
 
-        {/* Dynamic 3D Book Cards Shelf Row */}
         <div className="relative py-4 px-2 bg-zinc-950/5 dark:bg-zinc-950/20 rounded-2xl border border-zinc-200/80 dark:border-zinc-800/80 flex justify-center gap-4 h-[120px] items-end mb-3.5">
           {books.map((book, idx) => {
             const isSelected = selectedBookIdx === idx;
@@ -128,13 +127,11 @@ export default function LibraryMockup() {
                 transition={{ type: "spring", stiffness: 350, damping: 18 }}
                 className={`relative w-[65px] h-[90px] rounded-lg border-2 border-black ${book.coverColor} flex flex-col justify-between p-2 cursor-pointer transition-shadow`}
               >
-                {/* 3D Spine highlight line on book edge */}
+
                 <div className="absolute top-0 left-0.5 w-[2.5px] h-full bg-white/20 rounded-l" />
 
-                {/* Cover graphic */}
                 <div className="flex justify-end">{book.coverGraphic}</div>
 
-                {/* Minimalist Title */}
                 <div className="flex flex-col">
                   <span className="text-[7px] font-display font-black tracking-tight leading-none truncate uppercase">
                     {book.title}
@@ -147,11 +144,9 @@ export default function LibraryMockup() {
             );
           })}
 
-          {/* Realistic Brutalist Shelf Line */}
           <div className="absolute bottom-2 left-4 right-4 h-1.5 bg-black dark:bg-zinc-800 rounded-full" />
         </div>
 
-        {/* Dynamic Book Details Card */}
         <AnimatePresence mode="wait">
           <motion.div
             key={selectedBookIdx}
@@ -176,7 +171,6 @@ export default function LibraryMockup() {
               </span>
             </div>
 
-            {/* Reading progress tracker bar */}
             <div>
               <div className="flex justify-between text-[7px] font-mono text-zinc-450 dark:text-zinc-400 mb-1 font-bold">
                 <span>READING PROGRESS</span>
@@ -204,7 +198,6 @@ export default function LibraryMockup() {
         </AnimatePresence>
       </div>
 
-      {/* Footer Info */}
       <div className="flex items-center justify-between text-[8px] font-mono text-zinc-450 dark:text-zinc-550 pt-2.5 border-t border-zinc-150 dark:border-zinc-800">
         <span>SHELF MONITOR GATEWAY</span>
         <span className={`${syncing ? "animate-pulse text-pink-accent" : ""}`}>

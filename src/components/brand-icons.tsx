@@ -598,7 +598,7 @@ export function FigmaIcon({ size = 20, className, ...props }: BrandIconProps) {
 }
 
 export function CanvaIcon({ size = 20, className, ...props }: BrandIconProps) {
-  // Canva logo is wide (80x30), so we scale the dimensions to make it visually larger and balanced
+
   const width = size * 2.2;
   const height = size * 0.825;
   return (
