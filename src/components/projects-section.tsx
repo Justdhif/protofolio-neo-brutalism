@@ -166,7 +166,7 @@ export default function ProjectsSection() {
                     ))}
                   </div>
 
-                  <div className="flex items-center gap-4 pt-5 w-full sm:w-auto">
+                  <div className="flex flex-wrap items-center gap-4 pt-5 w-full sm:w-auto">
                     <motion.a
                       whileHover={{ scale: 1.03 }}
                       whileTap={{ scale: 0.98 }}
@@ -190,6 +190,24 @@ export default function ProjectsSection() {
                       <GithubIcon size={16} />
                       <span>Codebase</span>
                     </motion.a>
+
+                    <motion.button
+                      whileHover={{ scale: 1.03 }}
+                      whileTap={{ scale: 0.98 }}
+                      onClick={() => {
+                        window.dispatchEvent(
+                          new CustomEvent("open-ai-assistant", {
+                            detail: {
+                              question: `Explain the architecture, tech stack, and challenges for the ${project.title} project.`,
+                            },
+                          })
+                        );
+                      }}
+                      className="flex items-center justify-center gap-2 px-5 py-3.5 bg-[#a3e635] text-black font-display font-extrabold text-sm neo-border neo-shadow-sm neo-interactive rounded-xl cursor-pointer w-full sm:w-auto hover:bg-[#2d5cf6] hover:text-white transition-colors"
+                    >
+                      <Sparkles size={16} />
+                      <span>Ask AI</span>
+                    </motion.button>
                   </div>
                 </div>
               </motion.div>

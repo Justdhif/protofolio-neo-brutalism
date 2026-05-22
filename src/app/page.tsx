@@ -8,6 +8,7 @@ import TestimonialsSection from "@/components/testimonials-section";
 import ContactSection from "@/components/contact-section";
 import Footer from "@/components/footer";
 import ClickSpark from "@/components/click-spark";
+import AiSection from "@/components/ai-section";
 
 export default function Home() {
   return (
@@ -21,6 +22,7 @@ export default function Home() {
         <ProjectsSection />
         <TimelineSection />
         <TestimonialsSection />
+        <AiSection />
         <ContactSection />
       </main>
 

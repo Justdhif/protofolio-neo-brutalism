@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Space_Grotesk } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
+import AIAssistant from "@/components/ai-assistant";
 import "./globals.css";
 
 const inter = Inter({
@@ -45,6 +46,7 @@ export default function RootLayout({
         <ThemeProvider>
           <div className="relative z-10 flex flex-col min-h-screen">
             {children}
+            <AIAssistant />
           </div>
         </ThemeProvider>
       </body>

@@ -17,16 +17,16 @@ export const projects: Project[] = [
   },
   {
     id: 2,
-    title: "EquipShare",
-    category: "LENDING ENGINE / LOGISTICS",
+    title: "Sisfo Sarpras",
+    category: "SCHOOL INVENTORY / LENDING SYSTEM",
     description:
-      "A highly interactive equipment lending workspace designed for team assets. Features multi-status booking calendars, drag-and-drop reservations, and detailed check-out histories.",
+      "A comprehensive school facilities and infrastructure lending service. Features an interactive admin dashboard, real-time activity logs, detailed statistics, and streamlined borrowing and returning workflows.",
     tech: ["Laravel", "MySQL"],
     liveUrl: "https://example.com",
     githubUrl: "https://github.com/Justdhif/revisi-sarpras.git",
     accentClass: "bg-pink-accent text-white",
     shadowColor: "var(--border-color)",
-    urlSlug: "equipshare",
+    urlSlug: "sisfosarpras",
     mockupType: "lending",
   },
   {

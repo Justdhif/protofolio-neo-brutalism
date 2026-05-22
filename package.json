@@ -9,6 +9,10 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@ai-sdk/groq": "^3.0.39",
+    "@ai-sdk/react": "^3.0.192",
+    "@radix-ui/react-slot": "^1.2.4",
+    "ai": "^6.0.190",
     "clsx": "^2.1.1",
     "cobe": "^2.0.1",
     "framer-motion": "^12.39.0",
