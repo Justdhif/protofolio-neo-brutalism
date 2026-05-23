@@ -203,7 +203,7 @@ export default function ProjectsSection() {
                           })
                         );
                       }}
-                      className="flex items-center justify-center gap-2 px-5 py-3.5 bg-[#a3e635] text-black font-display font-extrabold text-sm neo-border neo-shadow-sm neo-interactive rounded-xl cursor-pointer w-full sm:w-auto hover:bg-[#2d5cf6] hover:text-white transition-colors"
+                      className="flex items-center justify-center gap-2 px-5 py-3.5 bg-lime-green text-black font-display font-extrabold text-sm neo-border neo-shadow-sm neo-interactive rounded-xl cursor-pointer w-full sm:w-auto hover:bg-electric hover:text-white transition-colors"
                     >
                       <Sparkles size={16} />
                       <span>Ask AI</span>

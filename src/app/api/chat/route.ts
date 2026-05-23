@@ -10,13 +10,13 @@ export async function POST(req: Request) {
   try {
     const { messages } = await req.json();
 
-    const result = streamText({
+    const result = await streamText({
       model: groq('llama-3.1-8b-instant'),
       system: AI_SYSTEM_PROMPT,
       messages,
     });
 
-    return new Response(result.textStream, {
+    return result.toTextStreamResponse({
       headers: { 'Content-Type': 'text/event-stream' }
     });
   } catch (error) {

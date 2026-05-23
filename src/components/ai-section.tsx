@@ -4,11 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Bot, Send, Sparkles, Loader2, CodeXml, TerminalSquare } from "lucide-react";
 
-const SUGGESTED_QUESTIONS = [
-  "What is your best project?",
-  "Tell me about your tech stack.",
-  "What backend technologies do you use?",
-];
+
 
 type Message = { id: string; role: "user" | "assistant"; content: string };
 
@@ -25,7 +21,15 @@ export default function AiSection() {
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    if (messagesEndRef.current) {
+      const container = messagesEndRef.current.parentElement;
+      if (container) {
+        container.scrollTo({
+          top: container.scrollHeight,
+          behavior: "smooth"
+        });
+      }
+    }
   };
 
   useEffect(() => {
@@ -181,20 +185,6 @@ export default function AiSection() {
             <div ref={messagesEndRef} />
           </div>
 
-          {/* Suggested Questions */}
-          {messages.length <= 2 && (
-            <div className="p-4 md:px-8 bg-black/5 dark:bg-white/5 backdrop-blur-md border-t border-black/5 dark:border-white/5 flex overflow-x-auto gap-3 no-scrollbar shrink-0 transition-colors">
-              {SUGGESTED_QUESTIONS.map((q, idx) => (
-                <button
-                  key={idx}
-                  onClick={() => appendMessage(q)}
-                  className="whitespace-nowrap px-4 py-2.5 text-sm font-medium rounded-xl border border-black/10 dark:border-white/10 bg-white dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 hover:border-blue-500 hover:text-blue-600 dark:hover:text-blue-400 transition-all shadow-sm hover:shadow-md"
-                >
-                  {q}
-                </button>
-              ))}
-            </div>
-          )}
 
           {/* Input Area */}
           <div className="p-4 md:p-6 bg-white/50 dark:bg-zinc-950/50 backdrop-blur-xl border-t border-black/10 dark:border-white/10 shrink-0 transition-colors">
