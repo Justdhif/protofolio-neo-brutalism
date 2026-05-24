@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { Inter, Space_Grotesk } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
-import AIAssistant from "@/components/ai-assistant";
+import SplashScreen from "@/components/splash-screen";
+import MusicPlayer from "@/components/music-player";
 import "./globals.css";
 
 const inter = Inter({
@@ -38,16 +39,33 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${inter.variable} ${spaceGrotesk.variable} scroll-smooth`}
+      suppressHydrationWarning
     >
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              try {
+                if (localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                  document.documentElement.classList.add('dark');
+                } else {
+                  document.documentElement.classList.remove('dark');
+                }
+              } catch (_) {}
+            `,
+          }}
+        />
+      </head>
       <body className="antialiased min-h-screen relative overflow-x-hidden selection:bg-lime-green selection:text-black">
 
         <div className="grain-overlay" />
 
         <ThemeProvider>
+          <SplashScreen />
           <div className="relative z-10 flex flex-col min-h-screen">
             {children}
-            <AIAssistant />
           </div>
+          <MusicPlayer />
         </ThemeProvider>
       </body>
     </html>

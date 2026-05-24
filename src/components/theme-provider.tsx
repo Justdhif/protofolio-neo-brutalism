@@ -13,7 +13,6 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [theme, setTheme] = useState<Theme>("light");
-  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
 
@@ -21,6 +20,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     const systemPrefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
 
     if (savedTheme) {
+      // eslint-disable-next-line react-hooks/rules-of-hooks
       setTheme(savedTheme);
       document.documentElement.classList.toggle("dark", savedTheme === "dark");
     } else if (systemPrefersDark) {
@@ -31,7 +31,6 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
       document.documentElement.classList.remove("dark");
     }
 
-    setMounted(true);
   }, []);
 
   const toggleTheme = () => {
@@ -43,7 +42,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme }}>
-      <div style={{ visibility: mounted ? "visible" : "hidden" }} className="w-full min-h-screen flex flex-col flex-1">
+      <div className="w-full min-h-screen flex flex-col flex-1">
         {children}
       </div>
     </ThemeContext.Provider>

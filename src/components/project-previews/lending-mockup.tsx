@@ -99,8 +99,7 @@ export default function LendingMockup() {
   });
 
   useEffect(() => {
-    let timeouts: NodeJS.Timeout[] = [];
-    let masterInterval: NodeJS.Timeout;
+    const timeouts: NodeJS.Timeout[] = [];
 
     const runMasterCycle = () => {
       const scheduleCycle = (cycleIndex: number) => {
@@ -174,7 +173,7 @@ export default function LendingMockup() {
 
     // Run immediately, then repeat every 40s
     runMasterCycle();
-    masterInterval = setInterval(() => {
+    const masterInterval = setInterval(() => {
       runMasterCycle();
     }, 40000);
 

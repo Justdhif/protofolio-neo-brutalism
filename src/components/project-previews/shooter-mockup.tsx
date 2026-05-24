@@ -796,7 +796,7 @@ export default function ShooterMockup() {
             <p className="text-[9px] font-mono text-zinc-350 max-w-[80%] mb-4 uppercase leading-relaxed">
               SIMULATION CONCLUDED <br />
               WAVES DEFEATED:{" "}
-              <span className="text-white font-extrabold">{wave}</span> // FINAL
+              <span className="text-white font-extrabold">{wave}</span> {"//"} FINAL
               SCORE: <span className="text-lime-green font-black">{score}</span>
             </p>
 

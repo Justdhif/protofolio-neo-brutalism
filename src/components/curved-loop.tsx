@@ -35,6 +35,7 @@ const CurvedLoop = ({
   const pathId = `curve-${uid}`;
   const pathD = `M-100,40 Q720,${40 + curveAmount} 1540,40`;
 
+  const [isDragging, setIsDragging] = useState(false);
   const dragRef = useRef(false);
   const lastXRef = useRef(0);
   const dirRef = useRef(direction);
@@ -88,6 +89,7 @@ const CurvedLoop = ({
   const onPointerDown = (e: React.PointerEvent) => {
     if (!interactive) return;
     dragRef.current = true;
+    setIsDragging(true);
     lastXRef.current = e.clientX;
     velRef.current = 0;
     (e.target as Element).setPointerCapture(e.pointerId);
@@ -115,11 +117,12 @@ const CurvedLoop = ({
   const endDrag = () => {
     if (!interactive) return;
     dragRef.current = false;
+    setIsDragging(false);
     dirRef.current = velRef.current > 0 ? "right" : "left";
   };
 
   const cursorStyle = interactive
-    ? dragRef.current
+    ? isDragging
       ? "grabbing"
       : "grab"
     : "auto";

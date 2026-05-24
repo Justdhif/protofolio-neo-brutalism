@@ -77,7 +77,7 @@ const ClickSpark: React.FC<ClickSparkProps> = ({
     [easing]
   );
 
-  const draw = useCallback((timestamp: number) => {
+  const draw = useCallback(function drawStep(timestamp: number) {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
@@ -113,7 +113,7 @@ const ClickSpark: React.FC<ClickSparkProps> = ({
     });
 
     if (sparksRef.current.length > 0) {
-      animationIdRef.current = requestAnimationFrame(draw);
+      animationIdRef.current = requestAnimationFrame(drawStep);
     } else {
       animationIdRef.current = null;
     }
