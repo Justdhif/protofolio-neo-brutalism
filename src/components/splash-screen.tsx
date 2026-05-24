@@ -108,7 +108,7 @@ export default function SplashScreen() {
                 className="text-5xl md:text-8xl font-black tracking-tighter uppercase font-display"
                 style={{ color: "var(--foreground)" }}
               >
-                Nadhif<span style={{ color: "#a3e635" }}>.</span>AW
+                Justdhif<span style={{ color: "#a3e635" }}>.</span>Dev
               </h1>
               <div className="absolute -top-4 -right-4 bg-[#facc15] text-dark-bg border-2 border-dark-bg font-bold px-2 py-1 transform rotate-12 text-sm shadow-[2px_2px_0px_0px_#09090b]">
                 PORTFOLIO

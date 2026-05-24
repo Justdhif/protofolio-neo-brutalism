@@ -51,7 +51,7 @@ export default function JustlistMockup() {
         <div className="flex items-center gap-2">
           <div className="w-2.5 h-2.5 rounded-full bg-teal-400 shadow-[0_0_8px_rgba(45,212,191,0.6)] animate-pulse" />
           <span className="text-[10px] font-display font-black uppercase tracking-widest text-zinc-900 dark:text-white">
-            JustList // Terminal v2.0
+            JustList
           </span>
         </div>
         <div className="flex items-center gap-3.5 font-mono text-[9px] font-bold text-zinc-500">

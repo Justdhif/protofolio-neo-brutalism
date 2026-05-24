@@ -714,7 +714,7 @@ export default function ShooterMockup() {
         <div className="flex items-center gap-2">
           <div className="w-2.5 h-2.5 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)] animate-pulse" />
           <span className="text-[10px] font-display font-black uppercase tracking-widest text-zinc-900 dark:text-white">
-            Retro Strike // DEMO PREVIEW
+            Retro Strike
           </span>
         </div>
         <div className="flex items-center gap-3.5 font-mono text-[9px] font-bold text-zinc-500">
