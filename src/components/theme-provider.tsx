@@ -20,7 +20,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     const systemPrefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
 
     if (savedTheme) {
-      // eslint-disable-next-line react-hooks/rules-of-hooks
+       
       setTheme(savedTheme);
       document.documentElement.classList.toggle("dark", savedTheme === "dark");
     } else if (systemPrefersDark) {

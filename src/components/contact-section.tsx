@@ -11,6 +11,24 @@ export default function ContactSection() {
   const [message, setMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isDownloading, setIsDownloading] = useState(false);
+  const [downloadComplete, setDownloadComplete] = useState(false);
+
+  const handleDownload = () => {
+    if (isDownloading) return;
+    setIsDownloading(true);
+    
+    // Simulate a short animation delay (since real download is instant)
+    setTimeout(() => {
+      setIsDownloading(false);
+      setDownloadComplete(true);
+      
+      // Reset back to normal after a few seconds
+      setTimeout(() => {
+        setDownloadComplete(false);
+      }, 3000);
+    }, 1500);
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -54,7 +72,7 @@ export default function ContactSection() {
             </div>
 
             <p className="font-sans font-medium text-zinc-700 dark:text-zinc-300 text-base md:text-lg leading-relaxed">
-              Have an elite project idea, a permanent engineering opening, or just want to chat about web micro-interactions? Drop a line in the terminal! I typically respond within 12 hours.
+              Have an elite project idea, a permanent engineering opening, or just want to chat about web micro-interactions?
             </p>
 
             <div className="space-y-4">
@@ -102,17 +120,47 @@ export default function ContactSection() {
               <a
                 href="/cv-nadhif.pdf"
                 download
-                className="p-4 bg-white dark:bg-dark-card rounded-xl neo-border neo-shadow neo-interactive flex items-center gap-3 cursor-pointer group"
+                onClick={handleDownload}
+                className={`p-4 bg-white dark:bg-dark-card rounded-xl neo-border neo-shadow flex items-center gap-3 cursor-pointer group transition-all duration-300 ${
+                  isDownloading || downloadComplete ? "scale-[0.98]" : "neo-interactive"
+                }`}
               >
-                <div className="p-2.5 bg-lime-green text-black rounded-lg neo-border-sm group-hover:scale-105 transition-transform duration-200">
-                  <Download size={18} strokeWidth={2.5} />
+                <div
+                  className={`p-2.5 rounded-lg neo-border-sm transition-all duration-300 flex items-center justify-center ${
+                    downloadComplete
+                      ? "bg-electric text-white"
+                      : "bg-lime-green text-black group-hover:scale-105"
+                  }`}
+                >
+                  {isDownloading ? (
+                    <motion.div
+                      animate={{ y: [0, 4, 0] }}
+                      transition={{ repeat: Infinity, duration: 0.8 }}
+                    >
+                      <Download size={18} strokeWidth={2.5} />
+                    </motion.div>
+                  ) : downloadComplete ? (
+                    <motion.div
+                      initial={{ scale: 0.5, opacity: 0 }}
+                      animate={{ scale: 1, opacity: 1 }}
+                      transition={{ type: "spring", stiffness: 200, damping: 10 }}
+                    >
+                      <CheckCircle2 size={18} strokeWidth={2.5} />
+                    </motion.div>
+                  ) : (
+                    <Download size={18} strokeWidth={2.5} />
+                  )}
                 </div>
                 <div className="flex-1">
                   <span className="text-[10px] text-zinc-400 font-mono block">
                     CURRICULUM VITAE
                   </span>
                   <span className="font-display font-bold text-sm md:text-base text-black dark:text-white group-hover:text-electric dark:group-hover:text-lime-green transition-colors">
-                    Download Resume / CV
+                    {isDownloading
+                      ? "Downloading..."
+                      : downloadComplete
+                        ? "Download Complete!"
+                        : "Download Resume / CV"}
                   </span>
                 </div>
               </a>

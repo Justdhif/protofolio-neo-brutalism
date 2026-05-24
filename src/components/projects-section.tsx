@@ -166,29 +166,17 @@ export default function ProjectsSection() {
                     ))}
                   </div>
 
-                  <div className="flex flex-wrap items-center gap-4 pt-5 w-full sm:w-auto">
+                  <div className="flex flex-wrap items-center gap-3 pt-5 w-full">
                     <motion.a
                       whileHover={{ scale: 1.03 }}
                       whileTap={{ scale: 0.98 }}
                       href={project.liveUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center justify-center gap-2 px-5 py-3.5 bg-lime-green text-black font-display font-extrabold text-sm neo-border neo-shadow-sm neo-interactive rounded-xl cursor-pointer w-full sm:w-auto"
+                      className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-4 py-3 bg-lime-green text-black font-display font-extrabold text-xs sm:text-sm neo-border neo-shadow-sm neo-interactive rounded-xl cursor-pointer"
                     >
                       <span>Preview</span>
-                      <ExternalLink size={16} strokeWidth={2.5} />
-                    </motion.a>
-
-                    <motion.a
-                      whileHover={{ scale: 1.03 }}
-                      whileTap={{ scale: 0.98 }}
-                      href={project.githubUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center justify-center gap-2 px-5 py-3.5 bg-white dark:bg-zinc-900 text-black dark:text-white font-display font-extrabold text-sm neo-border neo-shadow-sm neo-interactive rounded-xl cursor-pointer w-full sm:w-auto"
-                    >
-                      <GithubIcon size={16} />
-                      <span>Codebase</span>
+                      <ExternalLink size={14} strokeWidth={2.5} />
                     </motion.a>
 
                     <motion.button
@@ -203,11 +191,23 @@ export default function ProjectsSection() {
                           })
                         );
                       }}
-                      className="flex items-center justify-center gap-2 px-5 py-3.5 bg-lime-green text-black font-display font-extrabold text-sm neo-border neo-shadow-sm neo-interactive rounded-xl cursor-pointer w-full sm:w-auto hover:bg-electric hover:text-white transition-colors"
+                      className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-4 py-3 bg-lime-green text-black font-display font-extrabold text-xs sm:text-sm neo-border neo-shadow-sm neo-interactive rounded-xl cursor-pointer hover:bg-electric hover:text-white transition-colors"
                     >
-                      <Sparkles size={16} />
+                      <Sparkles size={14} />
                       <span>Ask AI</span>
                     </motion.button>
+
+                    <motion.a
+                      whileHover={{ scale: 1.03 }}
+                      whileTap={{ scale: 0.98 }}
+                      href={project.githubUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-4 py-3 bg-white dark:bg-zinc-900 text-black dark:text-white font-display font-extrabold text-xs sm:text-sm neo-border neo-shadow-sm neo-interactive rounded-xl cursor-pointer"
+                    >
+                      <GithubIcon size={14} />
+                      <span>Codebase</span>
+                    </motion.a>
                   </div>
                 </div>
               </motion.div>

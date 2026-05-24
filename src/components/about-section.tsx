@@ -5,7 +5,6 @@ import { motion } from "framer-motion";
 import { User, Terminal, Cpu, GraduationCap, ArrowRight, Code, Sparkles } from "lucide-react";
 import { stats } from "@/constants/about";
 import { heroSocials } from "@/constants/hero";
-import { LaravelIcon, NextjsIcon } from "./brand-icons";
 import CurvedLoop from "./curved-loop";
 
 export default function AboutSection() {
@@ -176,7 +175,6 @@ export default function AboutSection() {
                 }}
                 className="absolute -top-6 -left-6 px-4 py-2 bg-lime-green text-black font-display font-extrabold text-sm neo-border neo-shadow-sm rounded-xl flex items-center gap-2 z-10"
               >
-                <NextjsIcon size={16} strokeWidth={2.5} />
                 <span>Frontend Developer</span>
               </motion.div>
 

@@ -1,14 +1,15 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from "react";
-import { Play, Pause, SkipBack, SkipForward, Volume2, VolumeX, Music, X } from "lucide-react";
+import { Play, Pause, SkipBack, SkipForward, Volume2, VolumeX, Music, X, Repeat } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const PLAYLIST = [
   {
     title: "Multo (Indo Version)",
     artist: "Nadhif AW",
-    src: "/multo-indo-version.mp3"
+    src: "/multo-indo-version.mp3",
+    duration: 237
   }
 ];
 
@@ -17,14 +18,22 @@ export default function MusicPlayer() {
   const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
-  const [volume, setVolume] = useState(0.5);
+  // volume variable removed to fix unused warning
   const [isMuted, setIsMuted] = useState(false);
-  const [duration, setDuration] = useState(0);
+  const [isLooping, setIsLooping] = useState(false);
   
   const audioRef = useRef<HTMLAudioElement>(null);
   const progressBarRef = useRef<HTMLDivElement>(null);
+  const isDraggingRef = useRef(false);
 
   const currentTrack = PLAYLIST[currentTrackIndex];
+  const [duration, setDuration] = useState(currentTrack.duration || 0);
+
+  useEffect(() => {
+    if (currentTrack.duration) {
+      setDuration(currentTrack.duration);
+    }
+  }, [currentTrack]);
 
   // Play/Pause
   const togglePlay = () => {
@@ -62,30 +71,61 @@ export default function MusicPlayer() {
 
   // Update progress
   const handleTimeUpdate = () => {
-    if (audioRef.current) {
-      setProgress((audioRef.current.currentTime / audioRef.current.duration) * 100);
+    if (audioRef.current && !isDraggingRef.current) {
+      const audioDuration = isNaN(audioRef.current.duration) || !isFinite(audioRef.current.duration) 
+        ? duration 
+        : audioRef.current.duration;
+      setProgress((audioRef.current.currentTime / audioDuration) * 100);
     }
   };
 
   const handleLoadedMetadata = () => {
-    if (audioRef.current) {
+    if (audioRef.current && !isNaN(audioRef.current.duration) && isFinite(audioRef.current.duration)) {
       setDuration(audioRef.current.duration);
     }
   };
 
   const handleTrackEnded = () => {
-    handleNext();
+    setIsPlaying(false);
+    setProgress(0);
+    if (audioRef.current) {
+      audioRef.current.currentTime = 0;
+    }
   };
 
-  // Seek
-  const handleProgressClick = (e: React.MouseEvent<HTMLDivElement>) => {
+  // Seek / Drag
+  const updateProgressFromPointer = (e: React.PointerEvent<HTMLDivElement> | React.MouseEvent<HTMLDivElement>) => {
     if (progressBarRef.current && audioRef.current) {
       const rect = progressBarRef.current.getBoundingClientRect();
-      const clickX = e.clientX - rect.left;
+      const clickX = Math.max(0, Math.min(e.clientX - rect.left, rect.width));
       const newProgress = (clickX / rect.width);
-      audioRef.current.currentTime = newProgress * audioRef.current.duration;
-      setProgress(newProgress * 100);
+      
+      const audioDuration = isNaN(audioRef.current.duration) || !isFinite(audioRef.current.duration) 
+        ? duration 
+        : audioRef.current.duration;
+        
+      if (audioDuration > 0) {
+        audioRef.current.currentTime = newProgress * audioDuration;
+        setProgress(newProgress * 100);
+      }
     }
+  };
+
+  const handlePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
+    isDraggingRef.current = true;
+    updateProgressFromPointer(e);
+    (e.target as Element).setPointerCapture(e.pointerId);
+  };
+
+  const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (isDraggingRef.current) {
+      updateProgressFromPointer(e);
+    }
+  };
+
+  const handlePointerUp = (e: React.PointerEvent<HTMLDivElement>) => {
+    isDraggingRef.current = false;
+    (e.target as Element).releasePointerCapture(e.pointerId);
   };
 
   // Volume
@@ -97,21 +137,26 @@ export default function MusicPlayer() {
   };
 
   const formatTime = (timeInSeconds: number) => {
-    if (isNaN(timeInSeconds)) return "0:00";
+    if (isNaN(timeInSeconds) || !isFinite(timeInSeconds)) return "0:00";
     const minutes = Math.floor(timeInSeconds / 60);
     const seconds = Math.floor(timeInSeconds % 60);
     return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
   };
 
-  const currentTime = audioRef.current ? audioRef.current.currentTime : 0;
+  // Calculate current time from progress to avoid accessing ref during render
+  const currentTime = (progress / 100) * duration;
 
   return (
     <div className="fixed bottom-6 right-6 z-50">
       <audio 
         ref={audioRef}
         src={currentTrack.src}
+        preload="metadata"
+        loop={isLooping}
         onTimeUpdate={handleTimeUpdate}
         onLoadedMetadata={handleLoadedMetadata}
+        onDurationChange={handleLoadedMetadata}
+        onCanPlay={handleLoadedMetadata}
         onEnded={handleTrackEnded}
       />
 
@@ -177,8 +222,11 @@ export default function MusicPlayer() {
             <div className="flex flex-col gap-1">
               <div 
                 ref={progressBarRef}
-                onClick={handleProgressClick}
-                className="h-3 w-full bg-zinc-200 dark:bg-zinc-800 border-2 border-black cursor-pointer relative overflow-hidden group"
+                onPointerDown={handlePointerDown}
+                onPointerMove={handlePointerMove}
+                onPointerUp={handlePointerUp}
+                onPointerCancel={handlePointerUp}
+                className="h-3 w-full bg-zinc-200 dark:bg-zinc-800 border-2 border-black cursor-pointer relative overflow-hidden group touch-none"
               >
                 <div 
                   className="absolute top-0 left-0 h-full bg-pink-accent border-r-2 border-black transition-all duration-100 ease-linear"
@@ -218,13 +266,26 @@ export default function MusicPlayer() {
                 </button>
               </div>
 
-              {/* Volume Toggle */}
-              <button 
-                onClick={toggleMute}
-                className="w-8 h-8 flex items-center justify-center bg-electric text-white border-2 border-black active:translate-y-0.5 hover:bg-blue-700"
-              >
-                {isMuted ? <VolumeX size={14} /> : <Volume2 size={14} />}
-              </button>
+              <div className="flex items-center gap-2">
+                {/* Loop Toggle */}
+                <button 
+                  onClick={() => setIsLooping(!isLooping)}
+                  className={`w-8 h-8 flex items-center justify-center border-2 border-black active:translate-y-0.5 ${
+                    isLooping 
+                      ? "bg-pink-accent text-black hover:bg-pink-400" 
+                      : "bg-electric text-white hover:bg-blue-700"
+                  }`}
+                >
+                  <Repeat size={14} />
+                </button>
+                {/* Volume Toggle */}
+                <button 
+                  onClick={toggleMute}
+                  className="w-8 h-8 flex items-center justify-center bg-electric text-white border-2 border-black active:translate-y-0.5 hover:bg-blue-700"
+                >
+                  {isMuted ? <VolumeX size={14} /> : <Volume2 size={14} />}
+                </button>
+              </div>
             </div>
           </motion.div>
         )}

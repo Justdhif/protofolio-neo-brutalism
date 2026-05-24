@@ -63,7 +63,7 @@ export default function AiSection() {
 
       const reader = response.body.getReader();
       const decoder = new TextDecoder();
-      let assistantMsg: Message = {
+      const assistantMsg: Message = {
         id: (Date.now() + 1).toString(),
         role: "assistant",
         content: "",
@@ -197,30 +197,30 @@ export default function AiSection() {
 
           <motion.div
             variants={itemVariants}
-            className="flex flex-wrap items-center justify-center gap-4 pt-4 w-full"
+            className="flex flex-row items-center justify-center gap-2 md:gap-4 pt-4 w-full"
           >
             <button
               onClick={() => handleScrollTo("skills")}
-              className="flex items-center justify-center gap-2 px-6 py-4 bg-white dark:bg-zinc-900 text-black dark:text-white font-display font-extrabold text-sm md:text-base neo-border neo-shadow-sm neo-interactive rounded-xl cursor-pointer"
+              className="flex-1 sm:flex-none flex items-center justify-center gap-1.5 md:gap-2 px-3 py-3 md:px-6 md:py-4 bg-white dark:bg-zinc-900 text-black dark:text-white font-display font-extrabold text-xs md:text-base neo-border neo-shadow-sm neo-interactive rounded-xl cursor-pointer"
             >
               <Sparkles
-                size={20}
+                size={18}
                 className="text-orange-accent"
                 strokeWidth={2.5}
               />
-              <span>Explore My Skills</span>
+              <span>Explore Skills</span>
             </button>
 
             <button
               onClick={() => handleScrollTo("projects")}
-              className="flex items-center justify-center gap-2 px-6 py-4 bg-white dark:bg-zinc-900 text-black dark:text-white font-display font-extrabold text-sm md:text-base neo-border neo-shadow-sm neo-interactive rounded-xl cursor-pointer"
+              className="flex-1 sm:flex-none flex items-center justify-center gap-1.5 md:gap-2 px-3 py-3 md:px-6 md:py-4 bg-white dark:bg-zinc-900 text-black dark:text-white font-display font-extrabold text-xs md:text-base neo-border neo-shadow-sm neo-interactive rounded-xl cursor-pointer"
             >
               <CodeXml
-                size={20}
+                size={18}
                 className="text-pink-accent"
                 strokeWidth={2.5}
               />
-              <span>View My Projects</span>
+              <span>Explore Projects</span>
             </button>
           </motion.div>
         </motion.div>

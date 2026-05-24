@@ -25,7 +25,7 @@ export default function SplashScreen() {
     }, 2500);
 
     // Animate progress to 100% over 2.2 seconds
-    let startTime = performance.now();
+    const startTime = performance.now();
     let frameId: number;
 
     const updateProgress = (currentTime: number) => {
