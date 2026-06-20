@@ -78,7 +78,7 @@ export default function AiMockup() {
         <div className="flex items-center gap-2">
           <div className="w-2.5 h-2.5 rounded-full bg-electric animate-pulse shadow-[0_0_8px_rgba(45,92,246,0.6)]" />
           <span className="text-xs font-display font-black uppercase text-zinc-850 dark:text-zinc-100">
-            CognitiveAI Playground
+            Groq AI Assistant
           </span>
         </div>
         <span className="text-[8px] font-mono bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 px-2 py-0.5 rounded text-zinc-400 font-bold">

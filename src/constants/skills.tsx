@@ -38,23 +38,21 @@ export const skillCategories: SkillCategory[] = [
     skills: [
       {
         name: "React",
-        score: 10,
+        score: 8,
         icon: (
           <ReactIcon size={20} className="text-[#61dafb] dark:text-[#61dafb]" />
         ),
       },
       {
         name: "Next.js",
-        score: 10,
+        score: 8,
         icon: <NextjsIcon size={20} className="text-black dark:text-white" />,
       },
       {
         name: "Flutter",
-        score: 9,
-        icon: <FlutterIcon size={20} className="text-[#02569B]" />,
+        score: 5,
+        icon: <FlutterIcon size={20} className="text-[#02568B]" />,
       },
-      { name: "HTML", score: 10, icon: <HtmlIcon size={20} /> },
-      { name: "CSS", score: 10, icon: <CssIcon size={20} /> },
     ],
   },
   {
@@ -65,21 +63,20 @@ export const skillCategories: SkillCategory[] = [
     colorClass: "bg-electric text-white",
     strokeColorClass: "stroke-electric",
     skills: [
-      { name: "PHP", score: 9, icon: <PhpIcon size={20} /> },
+      { name: "PHP", score: 8, icon: <PhpIcon size={20} /> },
       {
         name: "Laravel",
-        score: 9,
+        score: 8,
         icon: <LaravelIcon size={20} className="text-[#FF2D20]" />,
       },
       {
         name: "Node.js",
-        score: 9,
+        score: 7,
         icon: <NodejsIcon size={20} className="text-[#339933]" />,
       },
-      { name: "Python", score: 8, icon: <PythonIcon size={20} /> },
       {
         name: "NestJS",
-        score: 8,
+        score: 6,
         icon: <NestjsIcon size={20} className="text-[#E0234E]" />,
       },
     ],
@@ -93,15 +90,14 @@ export const skillCategories: SkillCategory[] = [
     strokeColorClass: "stroke-pink-accent",
     skills: [
       { name: "Figma UI/UX", score: 8, icon: <FigmaIcon size={20} /> },
-      { name: "Canva Design", score: 9, icon: <CanvaIcon size={20} /> },
       {
         name: "Typography",
-        score: 9,
+        score: 7,
         icon: <Sparkles size={20} className="text-black dark:text-white" />,
       },
       {
         name: "Prototyping",
-        score: 8,
+        score: 7,
         icon: <Terminal size={20} className="text-black dark:text-white" />,
       },
     ],
@@ -114,10 +110,10 @@ export const skillCategories: SkillCategory[] = [
     colorClass: "bg-emerald-accent text-white",
     strokeColorClass: "stroke-emerald-accent",
     skills: [
-      { name: "MySQL", score: 9, icon: <MysqlIcon size={20} /> },
-      { name: "PostgreSQL", score: 9, icon: <PostgresqlIcon size={20} /> },
-      { name: "Supabase", score: 10, icon: <SupabaseIcon size={20} /> },
-      { name: "PocketBase", score: 8, icon: <PocketbaseIcon size={20} /> },
+      { name: "MySQL", score: 7, icon: <MysqlIcon size={20} /> },
+      { name: "PostgreSQL", score: 7, icon: <PostgresqlIcon size={20} /> },
+      { name: "Supabase", score: 7, icon: <SupabaseIcon size={20} /> },
+      { name: "PocketBase", score: 6, icon: <PocketbaseIcon size={20} /> },
     ],
   },
 ];

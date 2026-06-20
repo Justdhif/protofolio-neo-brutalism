@@ -1,14 +1,12 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ExternalLink, RefreshCw, Sparkles, Eye } from "lucide-react";
+import { RefreshCw, Sparkles, Eye } from "lucide-react";
 import { GithubIcon } from "@/components/brand-icons";
 import { projects } from "@/constants/projects";
 import LibraryMockup from "@/components/project-previews/library-mockup";
 import LendingMockup from "@/components/project-previews/lending-mockup";
 import AiMockup from "@/components/project-previews/ai-mockup";
-import FinanceMockup from "@/components/project-previews/finance-mockup";
-import ShooterMockup from "@/components/project-previews/shooter-mockup";
 import JustlistMockup from "@/components/project-previews/justlist-mockup";
 
 export default function ProjectsSection() {
@@ -110,8 +108,6 @@ export default function ProjectsSection() {
                       {project.mockupType === "library" && <LibraryMockup />}
                       {project.mockupType === "lending" && <LendingMockup />}
                       {project.mockupType === "ai" && <AiMockup />}
-                      {project.mockupType === "finance" && <FinanceMockup />}
-                      {project.mockupType === "shooter" && <ShooterMockup />}
                       {project.mockupType === "justlist" && <JustlistMockup />}
                     </div>
                   </motion.div>
@@ -167,18 +163,6 @@ export default function ProjectsSection() {
                   </div>
 
                   <div className="flex flex-wrap items-center gap-3 pt-5 w-full">
-                    <motion.a
-                      whileHover={{ scale: 1.03 }}
-                      whileTap={{ scale: 0.98 }}
-                      href={project.liveUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-4 py-3 bg-lime-green text-black font-display font-extrabold text-xs sm:text-sm neo-border neo-shadow-sm neo-interactive rounded-xl cursor-pointer"
-                    >
-                      <span>Preview</span>
-                      <ExternalLink size={14} strokeWidth={2.5} />
-                    </motion.a>
-
                     <motion.button
                       whileHover={{ scale: 1.03 }}
                       whileTap={{ scale: 0.98 }}

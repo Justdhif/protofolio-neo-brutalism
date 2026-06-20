@@ -100,7 +100,7 @@ export default function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={social.label}
-                  className="p-3 bg-white dark:bg-zinc-800 text-black dark:text-white neo-border neo-shadow-sm neo-interactive rounded-xl cursor-pointer hover:bg-cream transition-colors flex items-center justify-center"
+                  className="p-3 bg-white dark:bg-zinc-800 text-black dark:text-white neo-border neo-shadow-sm neo-interactive rounded-xl cursor-pointer flex items-center justify-center"
                 >
                   {social.icon}
                 </a>
@@ -109,7 +109,7 @@ export default function Footer() {
 
             <div className="flex items-center gap-2 pt-2 text-zinc-500 dark:text-zinc-400 font-mono text-xs">
               <MapPin size={14} className="text-orange-accent shrink-0" />
-              <span>Surabaya, Indonesia (GMT+7)</span>
+              <span>Jl. Radio Raya No.23, RT.01/RW.02, Cisalak, Kec. Sukmajaya, Kota Depok, Jawa Barat 16416</span>
             </div>
           </div>
 

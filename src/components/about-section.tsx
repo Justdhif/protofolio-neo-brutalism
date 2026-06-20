@@ -2,7 +2,15 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { User, Terminal, Cpu, GraduationCap, ArrowRight, Code, Sparkles } from "lucide-react";
+import {
+  User,
+  Terminal,
+  Cpu,
+  GraduationCap,
+  ArrowRight,
+  Code,
+  Sparkles,
+} from "lucide-react";
 import { stats } from "@/constants/about";
 import { heroSocials } from "@/constants/hero";
 import CurvedLoop from "./curved-loop";
@@ -43,7 +51,6 @@ export default function AboutSection() {
       <div className="absolute top-1/3 right-1/4 w-80 h-80 rounded-full bg-pink-accent/15 dark:bg-pink-accent/5 blur-3xl animate-blob [animation-delay:8s]" />
 
       <div className="max-w-6xl mx-auto w-full relative z-10 flex flex-col gap-24">
-        
         {/* --- PART 1: FORMER HERO SECTION --- */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           <motion.div
@@ -83,7 +90,10 @@ export default function AboutSection() {
               <span className="font-extrabold text-black dark:text-white underline decoration-electric decoration-3">
                 Nadhif A.W
               </span>
-              , a Junior Frontend Developer focused on crafting modern, highly interactive, and visually stunning web interfaces. I dedicate myself to turning design concepts into pixel-perfect, responsive digital experiences with smooth animations and clean code.
+              , a Junior Frontend Developer focused on crafting modern, highly
+              interactive, and visually stunning web interfaces. I dedicate
+              myself to turning design concepts into pixel-perfect, responsive
+              digital experiences with smooth animations and clean code.
             </motion.p>
 
             <motion.div
@@ -285,15 +295,15 @@ export default function AboutSection() {
                 </div>
                 <div className="flex gap-2">
                   <span className="text-lime-green font-bold">$</span>
-                  <span>specialty = &quot;React / Animation / DX&quot;</span>
+                  <span>specialist = &quot;Broken Heart&quot;</span>
                 </div>
                 <div className="flex gap-2">
                   <span className="text-lime-green font-bold">$</span>
-                  <span>coffee = &quot;Double Shot Espresso&quot;</span>
+                  <span>coffee = &quot;Caffè Latte&quot;</span>
                 </div>
                 <div className="flex gap-2">
                   <span className="text-lime-green font-bold">$</span>
-                  <span>focus = &quot;Pixel Perfection&quot;</span>
+                  <span>focus = &quot;Career & Future&quot;</span>
                 </div>
               </div>
             </div>
@@ -366,7 +376,6 @@ export default function AboutSection() {
             </p>
           </motion.div>
         </motion.div>
-
       </div>
 
       <div className="mt-16 md:mt-6 -mx-4 md:-mx-8 w-[calc(100%+2rem)] md:w-[calc(100%+4rem)]">

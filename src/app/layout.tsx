@@ -3,6 +3,7 @@ import { Inter, Space_Grotesk } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
 import SplashScreen from "@/components/splash-screen";
 import MusicPlayer from "@/components/music-player";
+import Script from "next/script";
 import "./globals.css";
 
 const inter = Inter({
@@ -42,7 +43,9 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <head>
-        <script
+        <Script
+          id="theme-script"
+          strategy="beforeInteractive"
           dangerouslySetInnerHTML={{
             __html: `
               try {

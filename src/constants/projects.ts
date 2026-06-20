@@ -31,7 +31,7 @@ export const projects: Project[] = [
   },
   {
     id: 3,
-    title: "CognitiveAI Studio",
+    title: "Groq AI Assistant",
     category: "ARTIFICIAL INTELLIGENCE / PROMPT TOOL",
     description:
       "An elite generative AI playground that connects users to the lightning-fast Groq LLaMA 3 endpoint, showing real-time text completions, high-speed token updates, and prompt variations.",
@@ -40,36 +40,8 @@ export const projects: Project[] = [
     githubUrl: "https://github.com/Justdhif/groq-react.git",
     accentClass: "bg-electric text-white",
     shadowColor: "var(--border-color)",
-    urlSlug: "cognitiveai",
+    urlSlug: "groq-ai",
     mockupType: "ai",
-  },
-  {
-    id: 4,
-    title: "Apex Wealth",
-    category: "FINANCIAL INTELLIGENCE / TRACKER",
-    description:
-      "A creative neo-brutalist financial companion containing micro-chart monitors for cash flow, multi-currency wallets, automatic recurring transaction tracking, and dynamic visual limits indicators.",
-    tech: ["Next.js", "Node.js", "Supabase"],
-    liveUrl: "https://example.com",
-    githubUrl: "https://github.com/Justdhif/finance-tracker.git",
-    accentClass: "bg-orange-accent text-white",
-    shadowColor: "var(--border-color)",
-    urlSlug: "apexwealth",
-    mockupType: "finance",
-  },
-  {
-    id: 5,
-    title: "Retro Strike",
-    category: "RETRO ARCADE / INTERACTIVE GAME",
-    description:
-      "A fast-paced classic 2D space shooter built with HTML5 Canvas, CSS3, and vanilla JavaScript. Features a custom loop engine, fluid particle expansions, synthesized sound effects via Web Audio API, and progressive wave systems.",
-    tech: ["HTML5", "CSS3", "JavaScript"],
-    liveUrl: "https://example.com",
-    githubUrl: "https://github.com",
-    accentClass: "bg-pink-accent text-white",
-    shadowColor: "var(--border-color)",
-    urlSlug: "retrostrike",
-    mockupType: "shooter",
   },
   {
     id: 6,
@@ -77,9 +49,9 @@ export const projects: Project[] = [
     category: "PRODUCTIVITY / TERMINAL APP",
     description:
       "A retro-inspired terminal todo manager with a full CMD-style interface. Features live task syncing via Supabase, command-based interaction, real-time session tracking, and a pixel-aesthetic dashboard that feels like hacking your tasks into existence.",
-    tech: ["React.js", "Supabase"],
+    tech: ["React.js"],
     liveUrl: "https://example.com",
-    githubUrl: "https://github.com",
+    githubUrl: "https://github.com/Justdhif/cmd-todo-list.git",
     accentClass: "bg-teal-400 text-black",
     shadowColor: "var(--border-color)",
     urlSlug: "justlist",

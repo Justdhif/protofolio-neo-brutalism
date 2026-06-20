@@ -1,56 +1,38 @@
 "use client";
 
-import { useState, useCallback } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Calendar, ChevronLeft, ChevronRight } from "lucide-react";
+import React, { useEffect, useRef, useState } from "react";
+import { useScroll, useTransform, motion } from "framer-motion";
+import { Calendar, ChevronRight } from "lucide-react";
 import { milestones } from "@/constants/timeline";
 
-const SLIDE_VARIANTS = {
-  enter: (direction: number) => ({
-    x: direction > 0 ? 120 : -120,
-    opacity: 0,
-    scale: 0.95,
-  }),
-  center: {
-    x: 0,
-    opacity: 1,
-    scale: 1,
-    transition: { type: "spring" as const, stiffness: 300, damping: 30 },
-  },
-  exit: (direction: number) => ({
-    x: direction > 0 ? -120 : 120,
-    opacity: 0,
-    scale: 0.95,
-    transition: { duration: 0.2 },
-  }),
-};
-
 export default function TimelineSection() {
-  const [current, setCurrent] = useState(0);
-  const [direction, setDirection] = useState(0);
+  const ref = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [height, setHeight] = useState(0);
 
-  const goTo = useCallback(
-    (nextIdx: number) => {
-      if (nextIdx === current) return;
-      setDirection(nextIdx > current ? 1 : -1);
-      setCurrent(nextIdx);
-    },
-    [current]
-  );
+  useEffect(() => {
+    if (ref.current) {
+      const rect = ref.current.getBoundingClientRect();
+      setHeight(rect.height);
+    }
+  }, [ref]);
 
-  const prev = () => goTo(Math.max(0, current - 1));
-  const next = () => goTo(Math.min(milestones.length - 1, current + 1));
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start 30%", "end 80%"],
+  });
 
-  const milestone = milestones[current];
+  const heightTransform = useTransform(scrollYProgress, [0, 1], [0, height]);
+  const opacityTransform = useTransform(scrollYProgress, [0, 0.1], [0, 1]);
 
   return (
     <section
       id="experience"
-      className="py-24 px-4 md:px-8 bg-cream dark:bg-zinc-950 transition-colors duration-300 overflow-hidden"
+      className="py-24 px-4 md:px-8 bg-cream dark:bg-zinc-950 transition-colors duration-300 overflow-hidden relative"
+      ref={containerRef}
     >
-      <div className="max-w-5xl mx-auto">
-
-        <div className="flex flex-col items-end mb-16 text-right">
+      <div className="max-w-6xl mx-auto">
+        <div className="flex flex-col items-start mb-16">
           <div className="px-3 py-1 bg-neon-purple text-white font-mono text-xs font-bold neo-border-sm neo-shadow-sm rounded-md mb-4">
             MY JOURNEY
           </div>
@@ -63,192 +45,79 @@ export default function TimelineSection() {
           </h2>
         </div>
 
-        <div className="relative flex items-center justify-between mb-8">
-
-          <div
-            className="absolute top-6 -translate-y-1/2 h-0.5 bg-zinc-200 dark:bg-zinc-800 pointer-events-none transition-colors duration-300"
-            style={{
-              left: `${100 / (2 * milestones.length)}%`,
-              right: `${100 / (2 * milestones.length)}%`,
-            }}
-          />
-
-          <motion.div
-            className="absolute top-6 -translate-y-1/2 h-1 rounded-full bg-linear-to-r from-neon-purple via-pink-accent to-lime-green pointer-events-none shadow-[0_0_8px_rgba(168,85,247,0.5)] dark:shadow-[0_0_12px_rgba(168,85,247,0.7)]"
-            style={{
-              left: `${100 / (2 * milestones.length)}%`,
-            }}
-            animate={{
-              width: `${(current / (milestones.length - 1)) * (100 - 100 / milestones.length)}%`,
-            }}
-            transition={{ type: "spring", stiffness: 100, damping: 18 }}
-          />
-
-          {milestones.map((m, idx) => {
-            const isActive = idx === current;
-            const isPast = idx < current;
-            return (
-              <button
-                key={idx}
-                onClick={() => goTo(idx)}
-                className={`
-                  relative z-10 flex-1 flex flex-col items-center group
-                  focus:outline-none focus-visible:ring-2 focus-visible:ring-neon-purple rounded-xl
-                `}
-                aria-label={`Go to milestone ${idx + 1}: ${m.role}`}
-              >
-
-                <div className="flex items-center justify-center h-12 w-full">
-                  <motion.div
-                    animate={{
-                      scale: isActive ? 1.15 : 1,
-                      boxShadow: isActive
-                        ? "4px 4px 0px #000"
-                        : "2px 2px 0px rgba(0,0,0,0.3)",
-                    }}
-                    transition={{ type: "spring", stiffness: 400, damping: 25 }}
-                    className={`
-                      p-2.5 rounded-xl neo-border-sm transition-colors duration-200 cursor-pointer
-                      ${isActive ? m.color : isPast ? "bg-zinc-300 dark:bg-zinc-600 text-zinc-500 dark:text-zinc-400" : "bg-white dark:bg-zinc-800 text-zinc-400 dark:text-zinc-500"}
-                    `}
-                  >
-                    {m.icon}
-                  </motion.div>
-                </div>
-
-                <span
-                  className={`
-                    mt-2 font-mono text-[10px] font-bold uppercase transition-colors duration-200 text-center leading-tight
-                    ${isActive ? "text-black dark:text-white" : "text-zinc-400 dark:text-zinc-500"}
-                  `}
-                >
-                  {m.period}
-                </span>
-              </button>
-            );
-          })}
-        </div>
-
-        <div className="relative w-full overflow-hidden">
-          <AnimatePresence mode="wait" custom={direction}>
-            <motion.div
-              key={current}
-              custom={direction}
-              variants={SLIDE_VARIANTS}
-              initial="enter"
-              animate="center"
-              exit="exit"
-              className="bg-white dark:bg-dark-card p-6 md:p-8 rounded-2xl neo-border neo-shadow w-full"
+        <div ref={ref} className="relative pb-20">
+          {milestones.map((item, index) => (
+            <div
+              key={index}
+              className="flex justify-start pt-10 md:pt-32 md:gap-10"
             >
-
-              <div className="flex flex-col md:flex-row md:items-start justify-between gap-4 mb-6 pb-6 border-b-2 border-dashed border-zinc-100 dark:border-zinc-800">
-                <div className="flex items-start gap-4">
-
-                  <div
-                    className={`shrink-0 p-3 rounded-xl neo-border-sm neo-shadow-sm ${milestone.color}`}
-                  >
-                    {milestone.icon}
-                  </div>
-                  <div>
-                    <div className="flex items-center gap-2 mb-1">
-                      <span className="font-mono text-xs font-bold text-zinc-400 uppercase">
-                        {current + 1} / {milestones.length}
-                      </span>
-                    </div>
-                    <h3 className="font-display font-black text-xl md:text-2xl text-black dark:text-white uppercase leading-tight tracking-tight">
-                      {milestone.role}
-                    </h3>
-                    <span className="font-display font-bold text-sm text-zinc-500 uppercase mt-1 inline-block">
-                      @{milestone.company}
-                    </span>
+              <div className="sticky z-10 flex flex-col items-center self-start max-w-xs md:flex-row top-40 lg:max-w-sm md:w-full">
+                <div className="absolute flex items-center justify-center w-12 h-12 rounded-full left-8 -translate-x-1/2 bg-white dark:bg-zinc-900 neo-border shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] dark:shadow-[2px_2px_0px_0px_rgba(255,255,255,0.2)]">
+                  <div className={`w-8 h-8 rounded-full flex items-center justify-center ${item.color} border-2 border-black`}>
+                    {item.icon}
                   </div>
                 </div>
-
-                <div className="flex items-center gap-1.5 px-3 py-1.5 bg-cream dark:bg-zinc-800 text-black dark:text-white font-mono text-xs font-bold neo-border-sm rounded-lg shrink-0 w-fit">
-                  <Calendar size={14} />
-                  <span>{milestone.period}</span>
+                
+                <div className="flex-col hidden gap-3 md:flex md:pl-24">
+                  <div className="flex items-center gap-1.5 px-3 py-1.5 bg-white dark:bg-zinc-800 text-black dark:text-white font-mono text-xs font-bold neo-border-sm rounded-lg w-fit shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] dark:shadow-[2px_2px_0px_0px_rgba(255,255,255,0.2)]">
+                    <Calendar size={14} />
+                    <span>{item.period}</span>
+                  </div>
+                  <h3 className="font-display font-black text-3xl md:text-4xl text-black dark:text-white uppercase leading-none tracking-tight">
+                    {item.role}
+                  </h3>
+                  <h3 className="font-display font-bold text-lg text-zinc-500 uppercase">
+                    @{item.company}
+                  </h3>
                 </div>
               </div>
 
-              <ul className="space-y-3 font-sans text-sm md:text-base text-zinc-700 dark:text-zinc-300 font-medium">
-                {milestone.description.map((bullet, bIdx) => (
-                  <motion.li
-                    key={bIdx}
-                    initial={{ opacity: 0, x: -10 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.1 + bIdx * 0.07 }}
-                    className="flex items-start gap-2"
-                  >
-                    <ChevronRight
-                      size={18}
-                      className="text-electric dark:text-pink-accent shrink-0 mt-0.5"
-                    />
-                    <span>{bullet}</span>
-                  </motion.li>
-                ))}
-              </ul>
-            </motion.div>
-          </AnimatePresence>
-        </div>
+              <div className="relative w-full pl-20 md:pl-4">
+                <div className="block mb-6 md:hidden">
+                  <div className="flex items-center gap-1.5 px-3 py-1.5 bg-white dark:bg-zinc-800 text-black dark:text-white font-mono text-xs font-bold neo-border-sm rounded-lg w-fit shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] dark:shadow-[2px_2px_0px_0px_rgba(255,255,255,0.2)] mb-3">
+                    <Calendar size={14} />
+                    <span>{item.period}</span>
+                  </div>
+                  <h3 className="font-display font-black text-2xl text-black dark:text-white uppercase leading-none tracking-tight mb-1">
+                    {item.role}
+                  </h3>
+                  <h3 className="font-display font-bold text-base text-zinc-500 uppercase">
+                    @{item.company}
+                  </h3>
+                </div>
 
-        <div className="flex items-center justify-center gap-4 sm:gap-6 mt-8">
-          <button
-            onClick={prev}
-            disabled={current === 0}
-            aria-label="Previous milestone"
-            className={`
-              shrink-0 p-3 rounded-2xl neo-border-sm neo-shadow-sm font-bold transition-all duration-200
-              focus:outline-none focus-visible:ring-2 focus-visible:ring-neon-purple
-              ${current === 0
-                ? "bg-zinc-100 dark:bg-zinc-800 text-zinc-300 dark:text-zinc-600 cursor-not-allowed opacity-50"
-                : "bg-white dark:bg-dark-card text-black dark:text-white hover:bg-neon-purple hover:text-white neo-interactive cursor-pointer"
-              }
-            `}
+                <div className="bg-white dark:bg-dark-card p-6 md:p-8 rounded-2xl neo-border neo-shadow-sm transition-transform hover:-translate-y-1 duration-300">
+                  <ul className="space-y-4 font-sans text-sm md:text-base text-zinc-700 dark:text-zinc-300 font-medium">
+                    {item.description.map((content, idx) => (
+                      <li key={idx} className="flex items-start gap-3">
+                        <ChevronRight
+                          size={20}
+                          className="text-electric dark:text-lime-green shrink-0 mt-0.5"
+                          strokeWidth={3}
+                        />
+                        <span className="leading-relaxed">{content}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          ))}
+
+          <div
+            style={{
+              height: height + "px",
+            }}
+            className="absolute left-8 top-0 overflow-hidden w-2 -translate-x-1/2 bg-zinc-200 dark:bg-zinc-800 border-x border-black dark:border-white rounded-full"
           >
-            <ChevronLeft size={22} strokeWidth={2.5} />
-          </button>
-
-          <div className="flex justify-center gap-2.5">
-            {milestones.map((_, idx) => (
-              <button
-                key={idx}
-                onClick={() => goTo(idx)}
-                aria-label={`Jump to milestone ${idx + 1}`}
-                className="focus:outline-none focus-visible:ring-2 focus-visible:ring-neon-purple rounded-full"
-              >
-                <motion.span
-                  animate={{
-                    width: idx === current ? 28 : 10,
-                    backgroundColor:
-                      idx === current
-                        ? "#a855f7" 
-                        : idx < current
-                        ? "#84cc16" 
-                        : "rgba(161,161,170,0.5)", 
-                  }}
-                  transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                  className="block h-2.5 rounded-full cursor-pointer"
-                  style={{ display: "block" }}
-                />
-              </button>
-            ))}
+            <motion.div
+              style={{
+                height: heightTransform,
+                opacity: opacityTransform,
+              }}
+              className="absolute inset-x-0 top-0 w-full bg-electric dark:bg-lime-green border-b-2 border-black"
+            />
           </div>
-
-          <button
-            onClick={next}
-            disabled={current === milestones.length - 1}
-            aria-label="Next milestone"
-            className={`
-              shrink-0 p-3 rounded-2xl neo-border-sm neo-shadow-sm font-bold transition-all duration-200
-              focus:outline-none focus-visible:ring-2 focus-visible:ring-neon-purple
-              ${current === milestones.length - 1
-                ? "bg-zinc-100 dark:bg-zinc-800 text-zinc-300 dark:text-zinc-600 cursor-not-allowed opacity-50"
-                : "bg-white dark:bg-dark-card text-black dark:text-white hover:bg-neon-purple hover:text-white neo-interactive cursor-pointer"
-              }
-            `}
-          >
-            <ChevronRight size={22} strokeWidth={2.5} />
-          </button>
         </div>
       </div>
     </section>
